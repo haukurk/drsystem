@@ -16,9 +16,9 @@ The system has the following components to send audit notifications to:
 Configure the database, both for the web project and the data layer project:
 
 ```
-  <connectionStrings>
-    <add name="DRSConnection" connectionString="Data Source=database01.corporation.com;Initial Catalog=DatabaseNAME;Persist Security Info=True;User ID=samskipdrs;Password=PASS" providerName="System.Data.SqlClient" />
-  </connectionStrings>
+<connectionStrings>
+  <add name="DRSConnection" connectionString="Data Source=database01.corporation.com;Initial Catalog=DatabaseNAME;Persist Security Info=True;User ID=samskipdrs;Password=PASS" providerName="System.Data.SqlClient" />
+</connectionStrings>
 ```
 
 Use Package Manager Console in VS, to prepare the database.
@@ -27,15 +27,15 @@ Use Package Manager Console in VS, to prepare the database.
 
 Start by enabling migration:
 
-```Enable-Migrations```
+``` Enable-Migrations ```
 
 Then create the initial migration:
 
-```Add-Migration Initial``` 
+``` Add-Migration Initial ``` 
 
 Then update the database:
 
-```Update-Database```
+``` Update-Database ```
 
 # WebAPI
 
