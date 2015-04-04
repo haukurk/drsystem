@@ -28,9 +28,6 @@ namespace DRS2Data.Mappers
             Property(c => c.Description).IsOptional();
             Property(c => c.Description).HasMaxLength(1000);
 
-            // REviewEntities
-            HasOptional(c => c.ReviewEntities).WithMany().Map(s => s.MapKey("ReviewEntiy"));
-
 
         }
     }

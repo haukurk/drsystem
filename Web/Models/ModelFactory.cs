@@ -120,7 +120,7 @@ namespace DRS2Web.Models
                        Id = log.LogID,
                        Message = log.Message,
                        Severity = log.Severity,
-                       User = log.User,
+                       User = CreateBasic(log.User),
                        Url = _UrlHelper.Link("Logs", new { id = log.LogID })
                    };
         }
@@ -131,7 +131,7 @@ namespace DRS2Web.Models
                 x => new LogModel
                 {
                     Id = x.LogID,
-                    User = x.User,
+                    User = CreateBasic(x.User),
                     Message = x.Message,
                     Severity = x.Severity,
                     Url = _UrlHelper.Link("Issues", new { id = x.LogID })

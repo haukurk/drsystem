@@ -13,6 +13,7 @@ namespace DRS2Data.Models
         public int LogID { get; set; }
         public string Message { get; set; }
         public int? Severity { get; set; }
-        public string User { get; set; }
+        public User User { get; set; }
+
     }
 }

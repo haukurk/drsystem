@@ -15,7 +15,7 @@ namespace DRS2Data
 
         public DRSContext() : base("DRSConnection")
         {
-            //Database.SetInitializer(new MigrateDatabaseToLatestVersion<DRSContext, DRSContextMigrationConfiguration>());
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<DRSContext, DRSContextMigrationConfiguration>());
         }
 
         public DbSet<Issue> Issues { get; set; }
@@ -24,16 +24,16 @@ namespace DRS2Data
         public DbSet<DRSSystem> Systems { get; set; }
         public DbSet<User> Users { get; set; }
 
-/*        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            //modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
-            //modelBuilder.Configurations.Add(new DRSSystemMapper());
-            //modelBuilder.Configurations.Add(new IssueMapper());
-            //modelBuilder.Configurations.Add(new LogMapper());
-            //modelBuilder.Configurations.Add(new ReviewEntityMapper());
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            modelBuilder.Configurations.Add(new DRSSystemMapper());
+            modelBuilder.Configurations.Add(new IssueMapper());
+            modelBuilder.Configurations.Add(new LogMapper());
+            modelBuilder.Configurations.Add(new ReviewEntityMapper());
+            modelBuilder.Configurations.Add(new UserMapper());
 
             base.OnModelCreating(modelBuilder);
         }
- */
     }
 }

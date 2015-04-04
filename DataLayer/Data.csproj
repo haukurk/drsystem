@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DRSContext.cs" />
+    <Compile Include="DRSContextMigrationConfiguration.cs" />
     <Compile Include="DRSDataSeeder.cs" />
     <Compile Include="DRSRepository.cs" />
     <Compile Include="IDRSRepository.cs" />
@@ -55,19 +56,6 @@
     <Compile Include="Mappers\LogMapper.cs" />
     <Compile Include="Mappers\ReviewEntityMapper.cs" />
     <Compile Include="Mappers\UserMapper.cs" />
-    <Compile Include="Migrations\201503281920024_Init.cs" />
-    <Compile Include="Migrations\201503281920024_Init.Designer.cs">
-      <DependentUpon>201503281920024_Init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201503311406026_Added a user model.cs" />
-    <Compile Include="Migrations\201503311406026_Added a user model.Designer.cs">
-      <DependentUpon>201503311406026_Added a user model.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201503311455094_Fix_reviewentity_user.cs" />
-    <Compile Include="Migrations\201503311455094_Fix_reviewentity_user.Designer.cs">
-      <DependentUpon>201503311455094_Fix_reviewentity_user.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Issue.cs" />
     <Compile Include="Models\Log.cs" />
     <Compile Include="Models\ReviewEntity.cs" />
@@ -81,17 +69,7 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201503281920024_Init.resx">
-      <DependentUpon>201503281920024_Init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503311406026_Added a user model.resx">
-      <DependentUpon>201503311406026_Added a user model.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503311455094_Fix_reviewentity_user.resx">
-      <DependentUpon>201503311455094_Fix_reviewentity_user.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

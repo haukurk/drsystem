@@ -19,7 +19,12 @@ namespace DRS2Data.Mappers
             Property(i => i.IssueID).IsRequired();
             Property(i => i.IssueID).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
+            Property(i => i.IssueIdentity).IsRequired();
+            Property(i => i.IssueProvider).IsRequired();
+            Property(i => i.URL).IsOptional();
 
+            // Relationships
+            HasRequired(c => c.ReviewEntity).WithMany().Map(s => s.MapKey("ReviewID"));
         }
     }
 }

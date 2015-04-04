@@ -19,6 +19,25 @@ namespace DRS2Data.Mappers
             Property(r => r.ReviewID).IsRequired();
             Property(r => r.ReviewID).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
+            Property(r => r.Description).IsOptional();
+
+            Property(r => r.Responsible).IsRequired();
+
+            Property(r => r.ResponsibleEmail).IsRequired();
+
+            Property(r => r.NotificationPeriod).IsRequired();
+
+            Property(r => r.LastNotified).IsOptional();
+
+            Property(r => r.IdentityString).IsRequired();
+
+            Property(r => r.URL).IsOptional();
+
+            //relationship  
+            HasRequired(c => c.System).WithMany().Map(s => s.MapKey("SystemID"));
+
+
+
         }
     }
 }

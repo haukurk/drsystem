@@ -19,6 +19,12 @@ namespace DRS2Data.Mappers
             Property(l => l.LogID).IsRequired();
             Property(l => l.LogID).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
+            Property(l => l.Message).IsRequired();
+            Property(l => l.Severity).IsOptional();
+
+            //relationship  
+            HasOptional(c => c.User).WithMany().Map(s => s.MapKey("UserID"));
+
         }
     }
 }
