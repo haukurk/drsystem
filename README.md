@@ -3,6 +3,13 @@ Document Review System, with JIRA or Email support. It offers trackable reviews 
 
 This project is partly a POC for using Microsoft's WebAPI 2. 
 
+Design pattern, tools and frameworks used: 
+* Entity Framework 6 (Code first)
+* Repository pattern for data layer 
+* DI design with Ninject
+* Model factory pattern to control WebAPI responses
+* (TODO: JWT Token for authoriziation - scalable auth -).*
+
 # Features
 
 The system has the following components to send audit notifications to:
