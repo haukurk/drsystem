@@ -1,10 +1,10 @@
 using System.Web.Http;
-using DRS2Data;
+using Data;
 
-[assembly: WebActivator.PreApplicationStartMethod(typeof(DRS2Web.App_Start.NinjectWebCommon), "Start")]
-[assembly: WebActivator.ApplicationShutdownMethodAttribute(typeof(DRS2Web.App_Start.NinjectWebCommon), "Stop")]
+[assembly: WebActivator.PreApplicationStartMethod(typeof(Api.App_Start.NinjectWebCommon), "Start")]
+[assembly: WebActivator.ApplicationShutdownMethodAttribute(typeof(Api.App_Start.NinjectWebCommon), "Stop")]
 
-namespace DRS2Web.App_Start
+namespace Api.App_Start
 {
     using System;
     using System.Web;

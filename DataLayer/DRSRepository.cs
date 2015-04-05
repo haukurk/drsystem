@@ -6,14 +6,17 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using DRS2Data.Models;
+using Data.Models;
+using NLog;
 
-namespace DRS2Data
+namespace Data
 {
     public class DRSRepository : IDRSRepository
     {
 
         private DRSContext _ctx;
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
         public DRSRepository(DRSContext ctx)
         {
             _ctx = ctx;
@@ -45,9 +48,9 @@ namespace DRS2Data
                     return true;
                 }
             }
-            catch
+            catch(Exception ex)
             {
-                // Logging, Sentry?
+                logger.Error("Deleting System Error: "+ex.Message);
             }
 
             return false;
@@ -60,9 +63,9 @@ namespace DRS2Data
                 _ctx.Systems.Add(system);
                 return true;
             }
-            catch
+            catch (Exception ex)
             {
-                // Logging, Sentry?
+                logger.Error("Inserting System Error: " + ex.Message);
             }
 
             return false;
@@ -95,9 +98,9 @@ namespace DRS2Data
                     return true;
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                // Logging, Sentry?
+                logger.Error("Deleting Issue Error: " + ex.Message);
             }
 
             return false;
@@ -110,9 +113,9 @@ namespace DRS2Data
                 _ctx.Issues.Add(issue);
                 return true;
             }
-            catch
+            catch (Exception ex)
             {
-                // Logging, Sentry?
+                logger.Error("Insert Issue Error: " + ex.Message);
             }
 
             return false;
@@ -146,9 +149,9 @@ namespace DRS2Data
                     return true;
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                // Logging, Sentry?
+                logger.Debug("Deleting Log Error: " + ex.Message);
             }
 
             return false;
@@ -161,9 +164,9 @@ namespace DRS2Data
                 _ctx.Logs.Add(log);
                 return true;
             }
-            catch
+            catch (Exception ex)
             {
-                // Logging, Sentry?
+                logger.Debug("Insert Log Error: " + ex.Message);
             }
 
             return false;
@@ -202,9 +205,9 @@ namespace DRS2Data
                     return true;
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                // Logging, Sentry?
+                logger.Debug("Deleting Review Error: " + ex.Message);
             }
 
             return false;
@@ -215,11 +218,12 @@ namespace DRS2Data
             try
             {
                 _ctx.ReviewEntities.Add(reviewEntity);
+                logger.Info("Added Review "+reviewEntity);
                 return true;
             }
-            catch
+            catch (Exception ex)
             {
-                // Logging, Sentry?
+                logger.Debug("Insert Review Error: " + ex.Message);
             }
 
             return false;
@@ -257,12 +261,13 @@ namespace DRS2Data
                 if (entity != null)
                 {
                     _ctx.Users.Remove(entity);
+                    logger.Info("Deleted user "+entity);
                     return true;
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                // Logging, Sentry?
+                logger.Debug("Deleting User Error: " + ex.Message);
             }
 
             return false;
@@ -273,12 +278,12 @@ namespace DRS2Data
             try
             {
                 _ctx.Users.Add(user);
+                logger.Info("Added user "+user);
                 return true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                // Logging, Sentry?
-                Debug.WriteLine(ex.Message);
+                logger.Debug("Insert User Error: " + ex.Message);
             }
 
             return false;
@@ -289,6 +294,23 @@ namespace DRS2Data
             _ctx.Entry(originalUser).CurrentValues.SetValues(updatedUser);
 
             return true;
+        }
+
+        public bool LoginUser(string userName, string password)
+        {
+            var user = _ctx.Users.Where(s => s.UserName == userName).SingleOrDefault();
+
+            if (user != null)
+            {
+                var verify = BCrypt.Net.BCrypt.Verify(password, user.Password);
+
+                if (verify)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
 

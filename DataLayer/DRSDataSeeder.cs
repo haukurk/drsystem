@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DRS2Data.Models;
+using Data.Models;
 
-namespace DRS2Data
+namespace Data
 {
     class DRSDataSeeder
     {

@@ -4,11 +4,11 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using DRS2Data;
-using DRS2Data.Models;
-using DRS2Web.Models;
+using Api.Models;
+using Data;
+using Data.Models;
 
-namespace DRS2Web.Controllers
+namespace Api.Controllers
 {
     public class SystemsController : BaseApiController
     {

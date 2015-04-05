@@ -5,10 +5,10 @@ using System.Linq;
 using System.Net.Http;
 using System.Security.Policy;
 using System.Web;
-using DRS2Data;
-using DRS2Data.Models;
+using Data;
+using Data.Models;
 
-namespace DRS2Web.Models
+namespace Api.Models
 {
     public class ModelFactory
     {

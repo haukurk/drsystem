@@ -1,11 +1,11 @@
-﻿using DRS2Data.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Data.Models;
 
-namespace DRS2Data
+namespace Data
 {
     public interface IDRSRepository
     {
@@ -41,6 +41,7 @@ namespace DRS2Data
         User GetUser(string userName);
         bool Insert(User user);
         bool Update(User originalUser, User updatedUser);
+        bool LoginUser(string userName, string password);
 
         bool SaveAll();
 

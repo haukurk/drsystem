@@ -5,9 +5,9 @@ using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DRS2Data.Models;
+using Data.Models;
 
-namespace DRS2Data.Mappers
+namespace Data.Mappers
 {
     class ReviewEntityMapper : EntityTypeConfiguration<ReviewEntity>
     {

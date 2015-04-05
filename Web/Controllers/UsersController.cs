@@ -6,11 +6,11 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Routing;
 using System.Web.UI;
-using DRS2Data;
-using DRS2Data.Models;
-using DRS2Web.Models;
+using Api.Models;
+using Data;
+using Data.Models;
 
-namespace DRS2Web.Controllers
+namespace Api.Controllers
 {
     public class UsersController : BaseApiController
     {

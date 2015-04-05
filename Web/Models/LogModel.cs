@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace DRS2Web.Models
+namespace Api.Models
 {
     public class LogModel
     {

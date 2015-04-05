@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using DRS2Data.Models;
+using Data.Models;
 
-namespace DRS2Web.Models
+namespace Api.Models
 {
     public class IssueModel
     {

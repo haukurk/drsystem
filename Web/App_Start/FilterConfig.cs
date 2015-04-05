@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 
-namespace DRS2Web
+namespace Api
 {
     public class FilterConfig
     {

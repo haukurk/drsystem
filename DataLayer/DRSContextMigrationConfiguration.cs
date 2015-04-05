@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DRS2Data
+namespace Data
 {
     class DRSContextMigrationConfiguration : DbMigrationsConfiguration<DRSContext>
     {

@@ -1,14 +1,14 @@
-﻿using DRS2Data.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DRS2Data.Mappers;
+using Data.Mappers;
+using Data.Models;
 
-namespace DRS2Data
+namespace Data
 {
     public class DRSContext : DbContext
     {

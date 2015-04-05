@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<nlog xmlns="http://www.nlog-project.org/schemas/NLog.xsd"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+    <extensions>
+    <add assembly="NLog.Targets.Sentry" />
+    </extensions>
+    
+    <targets>
+      <target name="console" xsi:type="Console" 
+            layout="${longdate}|${level}|${message}" />
+      <target name="file" xsi:type="File"
+            layout="${longdate} ${logger} ${message}" 
+            fileName="${basedir}/logs/drs.data.log" 
+            keepFileOpen="false"
+            encoding="iso-8859-2" />
+      <target name="Sentry" type="Sentry" dns="http://b1428e7c65d847a9a0eb1267130f7232:21462e96772f40858a42cea09ebcb52f@sentry.hauxi.is/7" />
+          <!-- Note this is a templorary project in my sentry setup. -->    
+    </targets>
+
+    <rules>
+      <logger name="*" minlevel="Debug" writeTo="file" />
+      <logger name="*" appendTo="Sentry" minLevel="Error"/>
+    </rules>
+</nlog>

@@ -133,6 +133,8 @@
     <Compile Include="Controllers\ReviewEntitiesController.cs" />
     <Compile Include="Controllers\SystemsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Filters\DRSAuthorizationAttribute.cs" />
+    <Compile Include="Filters\ForceHttpsAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

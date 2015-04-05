@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Formatting;
 using System.Web.Http;
+using Api.Filters;
 using Newtonsoft.Json.Serialization;
 
-namespace DRS2Web
+namespace Api
 {
     public static class WebApiConfig
     {
         public static void Register(HttpConfiguration config)
         {
+
+            config.Filters.Add(new ForceHttpsAttribute());
 
             /*config.Routes.MapHttpRoute(
                 name: "DefaultApi",
