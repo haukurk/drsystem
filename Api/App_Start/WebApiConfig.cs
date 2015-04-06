@@ -13,7 +13,7 @@ namespace Api
         public static void Register(HttpConfiguration config)
         {
 
-            config.Filters.Add(new ForceHttpsAttribute());
+            //config.Filters.Add(new ForceHttpsAttribute());
 
             /*config.Routes.MapHttpRoute(
                 name: "DefaultApi",

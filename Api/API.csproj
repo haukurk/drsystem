@@ -11,8 +11,8 @@
     <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DRS2Web</RootNamespace>
-    <AssemblyName>DRS2Web</AssemblyName>
+    <RootNamespace>API</RootNamespace>
+    <AssemblyName>API</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
@@ -168,7 +168,7 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataLayer\Data.csproj">
+    <ProjectReference Include="..\Data\Data.csproj">
       <Project>{c1fdbd71-2f3e-45a7-a084-131f1b2b7221}</Project>
       <Name>Data</Name>
     </ProjectReference>

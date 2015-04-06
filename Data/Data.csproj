@@ -7,8 +7,8 @@
     <ProjectGuid>{C1FDBD71-2F3E-45A7-A084-131F1B2B7221}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DRS2Data</RootNamespace>
-    <AssemblyName>DRS2Data</AssemblyName>
+    <RootNamespace>Data</RootNamespace>
+    <AssemblyName>Data</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -65,6 +65,7 @@
     <Compile Include="DRSContext.cs" />
     <Compile Include="DRSContextMigrationConfiguration.cs" />
     <Compile Include="DRSDataSeeder.cs" />
+    <Compile Include="DRSLogger.cs" />
     <Compile Include="DRSRepository.cs" />
     <Compile Include="IDRSRepository.cs" />
     <Compile Include="Mappers\DRSSystemMapper.cs" />
@@ -86,12 +87,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="LICENSE.txt" />
-    <Content Include="NLog.xml">
+    <None Include="NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </None>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

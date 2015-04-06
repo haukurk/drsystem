@@ -7,6 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Data.Models;
+using Data;
 using NLog;
 
 namespace Data
@@ -15,7 +16,6 @@ namespace Data
     {
 
         private DRSContext _ctx;
-        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         public DRSRepository(DRSContext ctx)
         {
@@ -24,6 +24,7 @@ namespace Data
 
         public IQueryable<DRSSystem> GetAllSystems()
         {
+            DRSLogger.Instance.Debug("Getting all systems...");
             return _ctx.Systems.AsQueryable();
         }
 
@@ -50,7 +51,7 @@ namespace Data
             }
             catch(Exception ex)
             {
-                logger.Error("Deleting System Error: "+ex.Message);
+                DRSLogger.Instance.Error("Deleting System Error: " + ex.Message);
             }
 
             return false;
@@ -65,7 +66,7 @@ namespace Data
             }
             catch (Exception ex)
             {
-                logger.Error("Inserting System Error: " + ex.Message);
+                DRSLogger.Instance.Error("Inserting System Error: " + ex.Message);
             }
 
             return false;
@@ -100,7 +101,7 @@ namespace Data
             }
             catch (Exception ex)
             {
-                logger.Error("Deleting Issue Error: " + ex.Message);
+                DRSLogger.Instance.Error("Deleting Issue Error: " + ex.Message);
             }
 
             return false;
@@ -115,7 +116,7 @@ namespace Data
             }
             catch (Exception ex)
             {
-                logger.Error("Insert Issue Error: " + ex.Message);
+                DRSLogger.Instance.Error("Insert Issue Error: " + ex.Message);
             }
 
             return false;
@@ -151,7 +152,7 @@ namespace Data
             }
             catch (Exception ex)
             {
-                logger.Debug("Deleting Log Error: " + ex.Message);
+                DRSLogger.Instance.Debug("Deleting Log Error: " + ex.Message);
             }
 
             return false;
@@ -166,7 +167,7 @@ namespace Data
             }
             catch (Exception ex)
             {
-                logger.Debug("Insert Log Error: " + ex.Message);
+                DRSLogger.Instance.Debug("Insert Log Error: " + ex.Message);
             }
 
             return false;
@@ -207,7 +208,7 @@ namespace Data
             }
             catch (Exception ex)
             {
-                logger.Debug("Deleting Review Error: " + ex.Message);
+                DRSLogger.Instance.Debug("Deleting Review Error: " + ex.Message);
             }
 
             return false;
@@ -218,12 +219,12 @@ namespace Data
             try
             {
                 _ctx.ReviewEntities.Add(reviewEntity);
-                logger.Info("Added Review "+reviewEntity);
+                DRSLogger.Instance.Info("Added Review " + reviewEntity);
                 return true;
             }
             catch (Exception ex)
             {
-                logger.Debug("Insert Review Error: " + ex.Message);
+                DRSLogger.Instance.Debug("Insert Review Error: " + ex.Message);
             }
 
             return false;
@@ -261,13 +262,13 @@ namespace Data
                 if (entity != null)
                 {
                     _ctx.Users.Remove(entity);
-                    logger.Info("Deleted user "+entity);
+                    DRSLogger.Instance.Info("Deleted user " + entity);
                     return true;
                 }
             }
             catch (Exception ex)
             {
-                logger.Debug("Deleting User Error: " + ex.Message);
+                DRSLogger.Instance.Debug("Deleting User Error: " + ex.Message);
             }
 
             return false;
@@ -278,12 +279,12 @@ namespace Data
             try
             {
                 _ctx.Users.Add(user);
-                logger.Info("Added user "+user);
+                DRSLogger.Instance.Info("Added user " + user);
                 return true;
             }
             catch (Exception ex)
             {
-                logger.Debug("Insert User Error: " + ex.Message);
+                DRSLogger.Instance.Debug("Insert User Error: " + ex.Message);
             }
 
             return false;

@@ -9,8 +9,8 @@
     <ProjectGuid>{79405DA3-211F-4A45-B509-6473ED89ADF1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DRS2Web.Tests</RootNamespace>
-    <AssemblyName>DRS2Web.Tests</AssemblyName>
+    <RootNamespace>API.Tests</RootNamespace>
+    <AssemblyName>API.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -106,7 +106,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Web\API.csproj">
+    <ProjectReference Include="..\Api\API.csproj">
       <Project>{0B055E9C-2E5D-4FFB-899A-3D4BDB9D88E7}</Project>
       <Name>API</Name>
     </ProjectReference>
