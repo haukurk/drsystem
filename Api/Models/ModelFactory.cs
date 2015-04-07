@@ -150,7 +150,7 @@ namespace Api.Models
                        LastName = user.LastName,
                        RegistrationDate = user.RegistrationDate,
                        UserName = user.UserName,
-                       Url = _UrlHelper.Link("Users", new {id = user.UserId})
+                       Url = _UrlHelper.Link("Users", new {userName = user.UserName})
                    };
         }
 
@@ -169,7 +169,7 @@ namespace Api.Models
                        UserName = user.UserName,
                        Logs = Create(user.Logs),
                        ReviewEntities = Create(user.ReviewEntities),
-                       Url = _UrlHelper.Link("Users", new {id = user.UserId})
+                       Url = _UrlHelper.Link("Users", new {userName = user.UserName})
                    };
         }
 

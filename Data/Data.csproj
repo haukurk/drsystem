@@ -67,6 +67,8 @@
     <Compile Include="DRSDataSeeder.cs" />
     <Compile Include="DRSLogger.cs" />
     <Compile Include="DRSRepository.cs" />
+    <Compile Include="Helpers\EFStatus.cs" />
+    <Compile Include="Helpers\ExceptionDecode.cs" />
     <Compile Include="IDRSRepository.cs" />
     <Compile Include="Mappers\DRSSystemMapper.cs" />
     <Compile Include="Mappers\IssueMapper.cs" />

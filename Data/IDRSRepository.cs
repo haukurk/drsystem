@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Configuration;
 using System.Text;
 using System.Threading.Tasks;
+using Data.Helpers;
 using Data.Models;
 
 namespace Data
@@ -44,6 +46,7 @@ namespace Data
         bool LoginUser(string userName, string password);
 
         bool SaveAll();
+        EFStatus SaveAllWithValidation();
 
     }
 }

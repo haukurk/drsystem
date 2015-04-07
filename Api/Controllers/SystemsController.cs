@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -74,6 +75,10 @@ namespace Api.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Could not save to the core database.");
                 
             }
+            catch (DbEntityValidationException ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex.EntityValidationErrors.First().ValidationErrors);
+            }
             catch (Exception ex)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
@@ -107,6 +112,10 @@ namespace Api.Controllers
 
                 return Request.CreateResponse(HttpStatusCode.NotModified);
 
+            }
+            catch (DbEntityValidationException ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex.EntityValidationErrors.First().ValidationErrors);
             }
             catch (Exception ex)
             {

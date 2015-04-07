@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Migrations.Infrastructure;
+using System.Data.Entity.Validation;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -8,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Data.Models;
 using Data;
+using Data.Helpers;
 using NLog;
 
 namespace Data
@@ -24,12 +28,13 @@ namespace Data
 
         public IQueryable<DRSSystem> GetAllSystems()
         {
-            DRSLogger.Instance.Debug("Getting all systems...");
+            DRSLogger.Instance.Trace("Querying for all systems.");
             return _ctx.Systems.AsQueryable();
         }
 
         public DRSSystem GetSystem(int systemid)
         {
+            DRSLogger.Instance.Trace("Querying system with id " + systemid);
             return _ctx.Systems.Find(systemid);
         }
 
@@ -46,6 +51,7 @@ namespace Data
                 if (entity != null)
                 {
                     _ctx.Systems.Remove(entity);
+                    DRSLogger.Instance.Trace("Removing system with id " + systemid);
                     return true;
                 }
             }
@@ -62,6 +68,7 @@ namespace Data
             try
             {
                 _ctx.Systems.Add(system);
+                DRSLogger.Instance.Trace("Creating system with name " + system.Name);
                 return true;
             }
             catch (Exception ex)
@@ -75,11 +82,13 @@ namespace Data
         public bool Update(DRSSystem orginalsystem, DRSSystem updatedSystem)
         {
             _ctx.Entry(orginalsystem).CurrentValues.SetValues(updatedSystem);
+            DRSLogger.Instance.Trace("Updating system with name " + updatedSystem.Name);
             return true;
         }
 
         public IQueryable<Issue> GetAllIssues()
         {
+            DRSLogger.Instance.Trace("Querying for all issues,");
             return _ctx.Issues.AsQueryable();
         }
 
@@ -152,7 +161,7 @@ namespace Data
             }
             catch (Exception ex)
             {
-                DRSLogger.Instance.Debug("Deleting Log Error: " + ex.Message);
+                DRSLogger.Instance.Error("Deleting Log Error: " + ex.Message);
             }
 
             return false;
@@ -167,7 +176,7 @@ namespace Data
             }
             catch (Exception ex)
             {
-                DRSLogger.Instance.Debug("Insert Log Error: " + ex.Message);
+                DRSLogger.Instance.Error("Insert Log Error: " + ex.Message);
             }
 
             return false;
@@ -208,7 +217,7 @@ namespace Data
             }
             catch (Exception ex)
             {
-                DRSLogger.Instance.Debug("Deleting Review Error: " + ex.Message);
+                DRSLogger.Instance.Error("Deleting Review Error: " + ex.Message);
             }
 
             return false;
@@ -219,12 +228,12 @@ namespace Data
             try
             {
                 _ctx.ReviewEntities.Add(reviewEntity);
-                DRSLogger.Instance.Info("Added Review " + reviewEntity);
+                DRSLogger.Instance.Trace("Added Review " + reviewEntity);
                 return true;
             }
             catch (Exception ex)
             {
-                DRSLogger.Instance.Debug("Insert Review Error: " + ex.Message);
+                DRSLogger.Instance.Error("Insert Review Error: " + ex.Message);
             }
 
             return false;
@@ -268,7 +277,7 @@ namespace Data
             }
             catch (Exception ex)
             {
-                DRSLogger.Instance.Debug("Deleting User Error: " + ex.Message);
+                DRSLogger.Instance.Error("Deleting User Error: " + ex.Message);
             }
 
             return false;
@@ -284,7 +293,7 @@ namespace Data
             }
             catch (Exception ex)
             {
-                DRSLogger.Instance.Debug("Insert User Error: " + ex.Message);
+                DRSLogger.Instance.Error("Insert User Error: " + ex.Message);
             }
 
             return false;
@@ -319,5 +328,35 @@ namespace Data
         {
             return _ctx.SaveChanges() > 0;
         }
+
+
+        public EFStatus SaveAllWithValidation()
+        {
+            var status = new EFStatus();
+
+            try
+            {
+                if(_ctx.SaveChanges() <= 0)
+                    DRSLogger.Instance.Warn("Triggered SaveChanges without any change pending..");
+            }
+            catch (DbEntityValidationException ex)
+            {
+                return status.SetErrors(ex.EntityValidationErrors);
+            }
+            catch (DbUpdateException ex)
+            {
+                var decodedErrors = SQLExceptionDecoder.TryDecodeDbUpdateException(ex);
+                if (decodedErrors == null)
+                    throw; // Rethrow if we do not know the Exception.
+                return status.SetErrors(decodedErrors);
+            }
+            catch (Exception ex)
+            {
+                DRSLogger.Instance.Error("Unknown error when saving pending changes. "+ex.Message);
+            }
+
+            return status;
+        }
+
     }
 }

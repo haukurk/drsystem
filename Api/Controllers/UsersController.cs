@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -8,6 +9,7 @@ using System.Web.Http.Routing;
 using System.Web.UI;
 using Api.Models;
 using Data;
+using Data.Helpers;
 using Data.Models;
 
 namespace Api.Controllers
@@ -85,7 +87,6 @@ namespace Api.Controllers
 
                 // Set dates.
                 user.RegistrationDate = DateTime.Now;
-                user.LastLoginDate = null;
 
                 DRSRepository.Insert(user);
 
@@ -93,12 +94,18 @@ namespace Api.Controllers
                 if (user == null)
                     return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Error when parsing post body.");
 
-                if (DRSRepository.SaveAll())
+                var saveStatus = DRSRepository.SaveAllWithValidation();
+
+                if (saveStatus.IsValid)
                 {
                     return Request.CreateResponse(HttpStatusCode.Created, DRSModelFactory.Create(user));
                 }
 
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Could not save the user.");
+                return Request.CreateResponse(HttpStatusCode.BadRequest, saveStatus);
+            }
+            catch (DbEntityValidationException ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex.EntityValidationErrors.First().ValidationErrors);
             }
             catch (Exception ex)
             {
@@ -128,6 +135,10 @@ namespace Api.Controllers
 
                 return Request.CreateResponse(HttpStatusCode.NotModified);
 
+            }
+            catch (DbEntityValidationException ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex.EntityValidationErrors.First().ValidationErrors);
             }
             catch (Exception ex)
             {

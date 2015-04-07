@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.Infrastructure.Annotations;
 using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Text;
@@ -19,6 +20,35 @@ namespace Data.Mappers
             Property(u => u.UserId).IsRequired();
             Property(u => u.UserId).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
+            Property(u => u.RegistrationDate).IsRequired();
+
+            Property(u => u.FirstName).IsRequired();
+
+            Property(u => u.LastName).IsRequired();
+
+            Property(u => u.Password).IsRequired();
+
+            Property(u => u.UserName)
+                .IsRequired()
+                .HasMaxLength(100)
+                .HasColumnAnnotation(
+                    IndexAnnotation.AnnotationName, 
+                    new IndexAnnotation(
+                    new IndexAttribute("IX_UserName", 1) { IsUnique = true }));
+
+            Property(u => u.Email)
+                .IsRequired()
+                .HasMaxLength(150)
+                .HasColumnAnnotation(
+                    IndexAnnotation.AnnotationName,
+                    new IndexAnnotation(
+                    new IndexAttribute("IX_Email", 1) { IsUnique = true }));
+
+            Property(u => u.RegistrationDate).IsOptional();
+
+            Property(u => u.LastLoginDate).IsOptional();
+
+            Property(u => u.DateOfBirth).IsOptional();
         }
     }
 }
