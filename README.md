@@ -30,7 +30,7 @@ Configure the database, both for the web project and the data layer project:
 
 Use Package Manager Console in VS, to prepare the database.
 
-* You need to choose the Data project as the default project before doing this. *
+*You need to choose the Data project as the default project before doing this.*
 
 ``` Update-Database -Verbose ```
 
@@ -38,7 +38,7 @@ If you are a developer and are doing changes to the EF entities you can simply d
 
 ``` Update-Database -Verbose -Force ```
 
-* Note, that by using force could mean that you might loose data. *
+*Note, that by using force could mean that you might loose data.*
 
 ## Logging configuration
 
