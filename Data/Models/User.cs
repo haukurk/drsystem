@@ -31,5 +31,9 @@ namespace Data.Models
         public ICollection<Log> Logs { get; set; }
         public ICollection<ReviewEntity> ReviewEntities { get; set; }
 
+        public override string ToString()
+        {
+            return FirstName + " " + LastName + " (" + UserName + ")";
+        }
     }
 }

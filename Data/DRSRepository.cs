@@ -288,7 +288,7 @@ namespace Data
             try
             {
                 _ctx.Users.Add(user);
-                DRSLogger.Instance.Info("Added user " + user);
+                DRSLogger.Instance.Info("Pending insert of the user " + user);
                 return true;
             }
             catch (Exception ex)
@@ -337,10 +337,13 @@ namespace Data
             try
             {
                 if(_ctx.SaveChanges() <= 0)
-                    DRSLogger.Instance.Warn("Triggered SaveChanges without any change pending..");
+                    DRSLogger.Instance.Warn("Triggered SaveChanges without any change pending!");
+
+                DRSLogger.Instance.Info("Pending entites saved.");
             }
             catch (DbEntityValidationException ex)
             {
+                DRSLogger.Instance.Error(String.Format("Error saving pending changes (Validation)! {0} [{1}]", ex.Message, string.Join(",", ex.EntityValidationErrors)));
                 return status.SetErrors(ex.EntityValidationErrors);
             }
             catch (DbUpdateException ex)
@@ -348,11 +351,14 @@ namespace Data
                 var decodedErrors = SQLExceptionDecoder.TryDecodeDbUpdateException(ex);
                 if (decodedErrors == null)
                     throw; // Rethrow if we do not know the Exception.
+
+                DRSLogger.Instance.Error(String.Format("Error saving pending changes (Update Exception)! {0} [{1}]", ex.Message, string.Join(",", decodedErrors)));
+
                 return status.SetErrors(decodedErrors);
             }
             catch (Exception ex)
             {
-                DRSLogger.Instance.Error("Unknown error when saving pending changes. "+ex.Message);
+                DRSLogger.Instance.Error("Unknown error when saving pending changes! "+ex.Message);
             }
 
             return status;
