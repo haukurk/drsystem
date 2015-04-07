@@ -8,7 +8,7 @@ Design pattern, tools and frameworks used:
 * Repository pattern for data layer 
 * DI design with Ninject
 * Model factory pattern to control WebAPI responses
-* (TODO: JWT Token for authoriziation - scalable auth -).*
+* Scalable authorization service using JWT.
 
 # Features
 
@@ -16,9 +16,9 @@ The system has the following components to send audit notifications to:
 * JIRA (Needs access to JIRA API) - Offers tracking.
 * Email - Does not offer tracking.
 
-# Dependencies and preparation to get the project started
+# Configuration
 
-## Database preparations and migrations.
+## Database preparations
 
 Configure the database, both for the web project and the data layer project:
 
@@ -30,23 +30,74 @@ Configure the database, both for the web project and the data layer project:
 
 Use Package Manager Console in VS, to prepare the database.
 
-*You need to choose the Data project as the default project before doing this.*
+* You need to choose the Data project as the default project before doing this. *
 
-Start by enabling migration:
+``` Update-Database -Verbose ```
 
-``` Enable-Migrations ```
+If you are a developer and are doing changes to the EF entities you can simply do the following, do update the database.
 
-Then create the initial migration:
+``` Update-Database -Verbose -Force ```
 
-``` Add-Migration Initial ``` 
+* Note, that by using force could mean that you might loose data. *
 
-Then update the database:
+## Logging configuration
 
-``` Update-Database ```
+This project uses NLog to simplify logging.
+
+The following NLog.config is a good example of how to use it:
+
+```
+<?xml version="1.0" encoding="utf-8" ?>
+<nlog xmlns="http://www.nlog-project.org/schemas/NLog.xsd"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+    <extensions>
+    <add assembly="NLog.Targets.Sentry" />
+    </extensions>
+    
+    <variable name="appName" value="DRS" />
+    
+    <targets>
+      <target name="console" xsi:type="Console" 
+            layout="${longdate}|${level}|${message}" />
+      <target name="file" xsi:type="File"
+            layout="${longdate} ${logger} ${message}" 
+            fileName="${basedir}/logs/drs.data.log" 
+            keepFileOpen="false"
+            encoding="iso-8859-2" />
+      <target name="Sentry" type="Sentry" dns="http://hashkey@sentry.hauxi.is/7645" />
+    </targets>
+
+    <rules>
+      <logger name="*" minlevel="Debug" writeTo="file" />
+      <logger name="*" appendTo="Sentry" minLevel="Debug"/>
+    </rules>
+</nlog>
+```
+
+This examples logs everything to a file logs/drs.data.log (all severities) and errors to a (Sentry)[https://github.com/getsentry/sentry] log aggregator.
+
+### Note to developers
+
+There is an built-in target in DRSLogger component, that enables logging to sentinel (https://sentinel.codeplex.com) when in DEBUG mode.
+
+```
+#if DEBUG
+     // Setup the logging view for Sentinel - http://sentinel.codeplex.com
+      var sentinalTarget = new NLogViewerTarget()
+      {
+        Name = "sentinal",
+        Address = "udp://127.0.0.1:9999"
+      };
+      var sentinalRule = new LoggingRule("*", LogLevel.Trace, sentinalTarget);
+      LogManager.Configuration.AddTarget("sentinal", sentinalTarget);
+      LogManager.Configuration.LoggingRules.Add(sentinalRule);
+#endif
+```
 
 # WebAPI
 
-## Resource resource 
+## Resource conventions
 
 This project is using the following convention for WebAPI resources.
 
@@ -67,3 +118,4 @@ Also the project uses HTTP response codes, for results:
 * Parsing failed in POST body we return, 400 (Bad Request).
 
 Same goes for other resources.
+
