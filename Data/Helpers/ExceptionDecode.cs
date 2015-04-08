@@ -14,10 +14,16 @@ namespace Data.Helpers
         private static readonly Dictionary<int, string> _sqlErrorTextDict =
             new Dictionary<int, string>
             {
-                {547,
-                 "This operation failed because another data entry uses this entry."},        
-                {2601,
-                 "One of the properties is marked as Unique index and there is already an entry with that value."}
+                {
+                    547,
+                    "This operation failed because another data entry uses this entry."},        
+                {
+                    2601,
+                    "One of the properties is marked as Unique index and there is already an entry with that value."},
+                {
+                    242,
+                    "Date Conversion failed."
+                }
             };
 
         /// <summary>
@@ -32,16 +38,20 @@ namespace Data.Helpers
             if (!(ex.InnerException is System.Data.Entity.Core.UpdateException) ||
                 !(ex.InnerException.InnerException is System.Data.SqlClient.SqlException))
                 return null;
+
             var sqlException =
                 (System.Data.SqlClient.SqlException)ex.InnerException.InnerException;
+
             var result = new List<ValidationResult>();
-            for (int i = 0; i < sqlException.Errors.Count; i++)
+
+            for (var i = 0; i < sqlException.Errors.Count; i++)
             {
                 var errorNum = sqlException.Errors[i].Number;
                 string errorText;
                 if (_sqlErrorTextDict.TryGetValue(errorNum, out errorText))
                     result.Add(new ValidationResult(errorText));
             }
+
             return result.Any() ? result : null;
         }
     }
