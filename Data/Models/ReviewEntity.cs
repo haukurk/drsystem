@@ -13,19 +13,20 @@ namespace Data.Models
         {
             System = new DRSSystem();
             Issues = new List<Issue>();
+            User = new User();
         }
 
         [Key]
-        public int ReviewID { get; set; }
+        public int Id { get; set; }
         public string Description { get; set; }
         public string Responsible { get; set; }
         public string ResponsibleEmail { get; set; }
         public int NotificationPeriod { get; set; }
-        public DateTime LastNotified { get; set; }
+        public DateTime? LastNotified { get; set; }
         public string IdentityString { get; set; }
         public string URL { get; set; }
 
-        public User user { get; set; }
+        public User User { get; set; }
         public DRSSystem System { get; set; }
         public ICollection<Issue> Issues { get; set; }
     }

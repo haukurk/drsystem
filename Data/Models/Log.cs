@@ -9,8 +9,14 @@ namespace Data.Models
 {
     public class Log
     {
+
+        public Log()
+        {
+            User = new User();
+        }
+
         [Key]
-        public int LogID { get; set; }
+        public int Id { get; set; }
         public string Message { get; set; }
         public int? Severity { get; set; }
         public User User { get; set; }

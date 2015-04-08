@@ -15,7 +15,7 @@ namespace Data.Models
         }
 
         [Key]
-        public int IssueID { get; set; }
+        public int Id { get; set; }
         public string IssueIdentity { get; set; }
         public string IssueProvider { get; set; }
         public string URL { get; set; }

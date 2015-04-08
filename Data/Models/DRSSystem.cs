@@ -15,7 +15,7 @@ namespace Data.Models
         }
 
         [Key]
-        public int DRSSystemID { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
 
