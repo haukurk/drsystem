@@ -22,7 +22,7 @@ namespace Api.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<UserBaseModel> Get(int page = 0, int pageSize = 10)
+        public IEnumerable<UserBaseModel> Get(int page = 0, int pageSize = 50)
         {
             IQueryable<User> query;
 
@@ -126,7 +126,7 @@ namespace Api.Controllers
                     return Request.CreateResponse(HttpStatusCode.NotModified, "User not found.");
                 }
 
-                user.UserId = originalUser.UserId;
+                user.Id = originalUser.Id;
 
                 if (DRSRepository.Update(originalUser, user) && DRSRepository.SaveAll())
                 {
@@ -164,7 +164,7 @@ namespace Api.Controllers
                         "Can not delete the users, it still has reviews entries.");
                 }
 
-                if (DRSRepository.DeleteUser(user.UserId) && DRSRepository.SaveAll())
+                if (DRSRepository.DeleteUser(user.Id) && DRSRepository.SaveAll())
                 {
                     return Request.CreateResponse(HttpStatusCode.OK);
                 }

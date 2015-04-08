@@ -98,12 +98,12 @@ namespace Api.Controllers
 
                 var originalSystem = DRSRepository.GetSystem(id);
 
-                if (originalSystem == null || originalSystem.DRSSystemID != id)
+                if (originalSystem == null || originalSystem.Id != id)
                 {
                     return Request.CreateResponse(HttpStatusCode.NotModified, "System is not found.");
                 }
                 
-                updatedSystem.DRSSystemID = id;
+                updatedSystem.Id = id;
                 
                 if (DRSRepository.Update(originalSystem, updatedSystem) && DRSRepository.SaveAll())
                 {

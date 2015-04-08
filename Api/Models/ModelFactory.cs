@@ -21,14 +21,16 @@ namespace Api.Models
             _repo = repo;
         }
 
+
+
         public SystemModel Create(DRSSystem system)
         {
             return new SystemModel()
                    {
-                       Id = system.DRSSystemID,
+                       Id = system.Id,
                        Name = system.Name,
                        Description = system.Description,
-                       Url = _UrlHelper.Link("Systems", new { id = system.DRSSystemID }),
+                       Url = _UrlHelper.Link("Systems", new { id = system.Id }),
                    };
         }
 
@@ -39,7 +41,7 @@ namespace Api.Models
                 var system = new DRSSystem()
                              {
                                  Description = model.Description,
-                                 DRSSystemID = model.Id,
+                                 Id = model.Id,
                                  Name = model.Name,
                                  ReviewEntities = _repo.GetAllReviewsEntitiesForSystem(model.Id).ToList()
                              };
@@ -49,19 +51,17 @@ namespace Api.Models
             {
                 return null;
             }
-
-
         }
 
         public IssueModel Create(Issue issue)
         {
             return new IssueModel()
                    {
-                       Id = issue.IssueID,
+                       Id = issue.Id,
                        IssueIdentity = issue.IssueIdentity,
                        ReviewEntity = Create(issue.ReviewEntity),
                        IssueUrl = issue.URL,
-                       Url = _UrlHelper.Link("Issues", new { id = issue.IssueID })
+                       Url = _UrlHelper.Link("Issues", new { id = issue.Id })
                    };
         }
 
@@ -70,11 +70,11 @@ namespace Api.Models
             var list = issues.ToList().Select(
                 x => new IssueModel
                      {
-                         Id = x.IssueID,
+                         Id = x.Id,
                          IssueIdentity = x.IssueIdentity,
                          ReviewEntity = Create(x.ReviewEntity),
                          IssueUrl = x.URL,
-                         Url = _UrlHelper.Link("Issues", new { id = x.IssueID })
+                         Url = _UrlHelper.Link("Issues", new { id = x.Id })
                      }
                 ).ToList();
 
@@ -85,14 +85,43 @@ namespace Api.Models
         {
             return new ReviewEntityModel()
                    {
-                       Id = entity.ReviewID,
+                       Id = entity.Id,
                        System = Create(entity.System),
                        Description = entity.Description,
                        PermanentUrl = entity.URL,
                        IdentityString = entity.IdentityString,
                        Issues = Create(entity.Issues),
-                       Url = _UrlHelper.Link("Entities", new { id = entity.ReviewID })
+                       User = CreateBasic(entity.User),
+                       LastNotified = entity.LastNotified,
+                       NotificationPeriod = entity.NotificationPeriod,
+                       Responsible = entity.Responsible,
+                       ResponsibleEmail = entity.ResponsibleEmail,
+                       Url = _UrlHelper.Link("ReviewEntities", new { id = entity.Id })
                    };
+        }
+
+        public ReviewEntity Parse(ReviewEntityModel entity)
+        {
+
+            var review = new ReviewEntity()
+            {
+                Id = entity.Id,
+                Description = entity.Description,
+                IdentityString = entity.IdentityString,
+                LastNotified = entity.LastNotified,
+                NotificationPeriod = entity.NotificationPeriod,
+                Responsible = entity.Responsible,
+                ResponsibleEmail = entity.ResponsibleEmail,
+                URL = entity.Url
+            };
+
+            // Populate navigation attributes.
+            if (entity.System.Id > 0) review.System = _repo.GetSystem(entity.System.Id);
+            if (entity.User.Id > 0) review.User = _repo.GetUser(entity.User.Id);
+            if (entity.Id > 0 ) review.Issues = _repo.GetAllIssuesForReview(entity.Id).ToList();
+
+            return review;
+
         }
 
         public List<ReviewEntityModel> Create(ICollection<ReviewEntity> reviewEntities)
@@ -100,13 +129,13 @@ namespace Api.Models
             var list = reviewEntities.ToList().Select(
                 x => new ReviewEntityModel
                 {
-                    Id = x.ReviewID,
+                    Id = x.Id,
                     System = Create(x.System),
                     Description = x.Description,
                     PermanentUrl = x.URL,
                     IdentityString = x.IdentityString,
                     Issues = Create(x.Issues),
-                    Url = _UrlHelper.Link("Entities", new { id = x.ReviewID })
+                    Url = _UrlHelper.Link("ReviewEntities", new { id = x.Id })
                 }
                 ).ToList();
 
@@ -117,11 +146,11 @@ namespace Api.Models
         {
             return new LogModel()
                    {
-                       Id = log.LogID,
+                       Id = log.Id,
                        Message = log.Message,
                        Severity = log.Severity,
                        User = CreateBasic(log.User),
-                       Url = _UrlHelper.Link("Logs", new { id = log.LogID })
+                       Url = _UrlHelper.Link("Logs", new { id = log.Id })
                    };
         }
 
@@ -130,11 +159,11 @@ namespace Api.Models
             var list = logs.ToList().Select(
                 x => new LogModel
                 {
-                    Id = x.LogID,
+                    Id = x.Id,
                     User = CreateBasic(x.User),
                     Message = x.Message,
                     Severity = x.Severity,
-                    Url = _UrlHelper.Link("Issues", new { id = x.LogID })
+                    Url = _UrlHelper.Link("Issues", new { id = x.Id })
                 }
                 ).ToList();
 
@@ -145,7 +174,7 @@ namespace Api.Models
         {
             return new UserBaseModel
                    {
-                       Id = user.UserId,
+                       Id = user.Id,
                        FirstName = user.FirstName,
                        LastName = user.LastName,
                        RegistrationDate = user.RegistrationDate,
@@ -158,11 +187,10 @@ namespace Api.Models
         {
             return new UserDetailModel()
                    {
-                       Id = user.UserId,
+                       Id = user.Id,
                        Email = user.Email,
                        FirstName = user.FirstName,
                        LastName = user.LastName,
-                       Fullname = user.FirstName + " " + user.LastName,
                        LastLoginDate = user.LastLoginDate,
                        RegistrationDate = user.RegistrationDate,
                        DateOfBirth = user.DateOfBirth,
