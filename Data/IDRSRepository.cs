@@ -19,6 +19,7 @@ namespace Data
         bool Update(DRSSystem orginalsystem, DRSSystem updatedSystem);
 
         IQueryable<Issue> GetAllIssues();
+        IQueryable<Issue> GetAllIssuesForReview(int reviewid);
         Issue GetIssue(int issueid);
         bool DeleteIssue(int issueid);
         bool Insert(Issue issue);

@@ -92,6 +92,12 @@ namespace Data
             return _ctx.Issues.AsQueryable();
         }
 
+        public IQueryable<Issue> GetAllIssuesForReview(int reviewid)
+        {
+            DRSLogger.Instance.Trace("Querying for all issues for a review entity,");
+            return _ctx.Issues.Where(c => c.ReviewEntity.Id == reviewid).AsQueryable();
+        }
+
         public Issue GetIssue(int issueid)
         {
             return _ctx.Issues.Find(issueid);
@@ -196,7 +202,7 @@ namespace Data
 
         public IQueryable<ReviewEntity> GetAllReviewsEntitiesForSystem(int systemid)
         {
-            return _ctx.ReviewEntities.Where(r => r.System.DRSSystemID == systemid);
+            return _ctx.ReviewEntities.Where(r => r.System.Id == systemid);
         }
 
         public ReviewEntity GetReviewEntity(int reviewentityid)
@@ -228,7 +234,7 @@ namespace Data
             try
             {
                 _ctx.ReviewEntities.Add(reviewEntity);
-                DRSLogger.Instance.Trace("Added Review " + reviewEntity);
+                DRSLogger.Instance.Trace("Pending Insert ReviewEntity " + reviewEntity);
                 return true;
             }
             catch (Exception ex)
@@ -343,14 +349,20 @@ namespace Data
             }
             catch (DbEntityValidationException ex)
             {
-                DRSLogger.Instance.Error(String.Format("Error saving pending changes (Validation)! {0} [{1}]", ex.Message, string.Join(",", ex.EntityValidationErrors)));
-                return status.SetErrors(ex.EntityValidationErrors);
+                var ret = status.SetErrors(ex.EntityValidationErrors);
+                DRSLogger.Instance.Error(String.Format("Error saving pending changes (Validation)! {0} [{1}]", ex.Message, string.Join(",", ret.EfErrors)));
+                return ret;
             }
             catch (DbUpdateException ex)
             {
                 var decodedErrors = SQLExceptionDecoder.TryDecodeDbUpdateException(ex);
                 if (decodedErrors == null)
+                {
+                    DRSLogger.Instance.Error(
+                        String.Format("Unknown Error saving pending changes (Update Exception)! {0} [{1}]", ex.Message,
+                            ex.InnerException.ToString()));
                     throw; // Rethrow if we do not know the Exception.
+                }
 
                 DRSLogger.Instance.Error(String.Format("Error saving pending changes (Update Exception)! {0} [{1}]", ex.Message, string.Join(",", decodedErrors)));
 
