@@ -15,9 +15,9 @@ namespace Data.Mappers
         {
             ToTable("ReviewEntities", schemaName: "samskipdrs");
 
-            HasKey(r => r.ReviewID);
-            Property(r => r.ReviewID).IsRequired();
-            Property(r => r.ReviewID).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            HasKey(r => r.Id);
+            Property(r => r.Id).IsRequired();
+            Property(r => r.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
             Property(r => r.Description).IsOptional();
 
@@ -34,8 +34,7 @@ namespace Data.Mappers
             Property(r => r.URL).IsOptional();
 
             //relationship  
-            HasRequired(c => c.System).WithMany().Map(s => s.MapKey("SystemID"));
-
+            HasRequired(c => c.User).WithMany().Map(s => s.MapKey("UserID"));
 
 
         }

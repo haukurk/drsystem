@@ -16,9 +16,9 @@ namespace Data.Mappers
         {
             ToTable("Users", schemaName: "samskipdrs");
 
-            HasKey(u => u.UserId);
-            Property(u => u.UserId).IsRequired();
-            Property(u => u.UserId).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            HasKey(u => u.Id);
+            Property(u => u.Id).IsRequired();
+            Property(u => u.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
             Property(u => u.RegistrationDate).IsRequired();
 
@@ -49,6 +49,7 @@ namespace Data.Mappers
             Property(u => u.LastLoginDate).IsOptional();
 
             Property(u => u.DateOfBirth).IsOptional();
+
         }
     }
 }

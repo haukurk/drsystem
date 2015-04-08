@@ -15,9 +15,9 @@ namespace Data.Mappers
         {
             ToTable("Logs", schemaName: "samskipdrs");
 
-            HasKey(l => l.LogID);
-            Property(l => l.LogID).IsRequired();
-            Property(l => l.LogID).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            HasKey(l => l.Id);
+            Property(l => l.Id).IsRequired();
+            Property(l => l.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
             Property(l => l.Message).IsRequired();
             Property(l => l.Severity).IsOptional();

@@ -15,9 +15,9 @@ namespace Data.Mappers
         {
             ToTable("Issues", schemaName: "samskipdrs");
 
-            HasKey(i => i.IssueID);
-            Property(i => i.IssueID).IsRequired();
-            Property(i => i.IssueID).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            HasKey(i => i.Id);
+            Property(i => i.Id).IsRequired();
+            Property(i => i.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
             Property(i => i.IssueIdentity).IsRequired();
             Property(i => i.IssueProvider).IsRequired();
