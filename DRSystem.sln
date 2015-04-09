@@ -9,6 +9,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API", "Api\API.csproj", "{0
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API.Tests", "Api.Tests\API.Tests.csproj", "{79405DA3-211F-4A45-B509-6473ED89ADF1}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{BEFE4125-6900-40D8-B59B-B6E9C3065F31}"
+	ProjectSection(SolutionItems) = preProject
+		docs\conf.py = docs\conf.py
+		docs\index.rst = docs\index.rst
+		docs\make.bat = docs\make.bat
+		docs\Makefile = docs\Makefile
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
