@@ -107,5 +107,71 @@ namespace Api.Controllers
             }
         }
 
+        [HttpPatch]
+        [HttpPut]
+        public HttpResponseMessage Put(int reviewid, [FromBody] ReviewEntityModel review)
+        {
+            try
+            {
+                var originalReview = DRSRepository.GetReviewEntity(reviewid);
+                var updatedReview = DRSModelFactory.Parse(review);
+
+                if (originalReview == null || originalReview.Id != reviewid)
+                {
+                    return Request.CreateResponse(HttpStatusCode.NotModified, "Review Entity not found.");
+                }
+
+                review.Id = originalReview.Id;
+
+                if (DRSRepository.Update(originalReview, updatedReview) && DRSRepository.SaveAll())
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, DRSModelFactory.Create(updatedReview));
+                }
+
+                return Request.CreateResponse(HttpStatusCode.NotModified);
+
+            }
+            catch (DbEntityValidationException ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex.EntityValidationErrors.First().ValidationErrors);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
+            }
+        }
+
+        [HttpDelete]
+        public HttpResponseMessage Delete(int reviewid)
+        {
+            try
+            {
+                var review = DRSRepository.GetReviewEntity(reviewid);
+
+                if (review == null)
+                {
+                    return Request.CreateResponse(HttpStatusCode.NotFound);
+                }
+
+                if (review.Issues.Count > 0)
+                {
+                    return Request.CreateResponse(HttpStatusCode.BadRequest,
+                        "Can not delete the review, it still has related issues.");
+                }
+
+                if (DRSRepository.DeleteUser(review.Id) && DRSRepository.SaveAll())
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK);
+                }
+
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+
+        }
+
     }
 }
