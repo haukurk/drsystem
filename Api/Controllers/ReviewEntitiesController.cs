@@ -30,9 +30,9 @@ namespace Api.Controllers
             var totalPages = (int)Math.Ceiling((double)totalCount / pageSize);
 
             var urlHelper = new UrlHelper(Request);
-            var prevLink = page > 0 ? urlHelper.Link("Users", new { page = page - 1, pageSize = pageSize }) : "";
+            var prevLink = page > 0 ? urlHelper.Link("ReviewEntities", new { page = page - 1, pageSize = pageSize }) : "";
             var nextLink = page < totalPages - 1
-                ? urlHelper.Link("Users", new { page = page + 1, pageSize = pageSize })
+                ? urlHelper.Link("ReviewEntities", new { page = page + 1, pageSize = pageSize })
                 : "";
 
             var paginationHeader = new

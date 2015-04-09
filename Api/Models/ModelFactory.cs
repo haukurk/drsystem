@@ -150,6 +150,7 @@ namespace Api.Models
                        Message = log.Message,
                        Severity = log.Severity,
                        User = CreateBasic(log.User),
+                       Created = log.Created,
                        Url = _UrlHelper.Link("Logs", new { id = log.Id })
                    };
         }
@@ -162,13 +163,33 @@ namespace Api.Models
                     Id = x.Id,
                     User = CreateBasic(x.User),
                     Message = x.Message,
+                    Created = x.Created,
                     Severity = x.Severity,
-                    Url = _UrlHelper.Link("Issues", new { id = x.Id })
+                    Url = _UrlHelper.Link("Logs", new { id = x.Id })
                 }
                 ).ToList();
 
             return list;
         }
+
+        public Log Parse(LogModel log)
+        {
+
+            var entity = new Log()
+            {
+                Id = log.Id,
+                Message = log.Message,
+                Created = log.Created,
+                Severity = log.Severity
+            };
+
+            // Populate navigation attributes.
+            if (log.User.Id > 0) entity.User = _repo.GetUser(entity.User.Id);
+
+            return entity;
+
+        }
+
 
         public UserBaseModel CreateBasic(User user)
         {

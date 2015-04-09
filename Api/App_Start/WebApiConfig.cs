@@ -42,6 +42,20 @@ namespace Api
                 defaults: new { controller = "reviewentities", id = RouteParameter.Optional }
                 );
 
+            // Logs
+            config.Routes.MapHttpRoute(
+                name: "Logs",
+                routeTemplate: "api/logs/{id}",
+                defaults: new { controller = "logs", id = RouteParameter.Optional }
+                );
+
+            // Issues
+            config.Routes.MapHttpRoute(
+                name: "Issues",
+                routeTemplate: "api/issues/{id}",
+                defaults: new { controller = "issues", id = RouteParameter.Optional }
+                );
+
             // Lets make our JSON format be in camelCase format for JS developers.
             var jsonFormatter = config.Formatters.OfType<JsonMediaTypeFormatter>().First();
             jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
