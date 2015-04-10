@@ -15,12 +15,6 @@ namespace Api
 
             //config.Filters.Add(new ForceHttpsAttribute());
 
-            /*config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
-            );*/
-
             // Systems 
             config.Routes.MapHttpRoute(
                 name: "Systems",

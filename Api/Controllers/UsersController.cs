@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Routing;
 using System.Web.UI;
+using Api.Filters;
 using Api.Models;
 using Data;
 using Data.Helpers;
@@ -60,6 +61,7 @@ namespace Api.Controllers
         }
 
         // TODO: THIS NEEDS PROTECTION.
+        [DRSBasicAuthorization(true)]
         [HttpGet]
         public HttpResponseMessage Get(string username)
         {

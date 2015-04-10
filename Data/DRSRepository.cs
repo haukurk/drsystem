@@ -293,6 +293,11 @@ namespace Data
         {
             try
             {
+                // We store oasswords in BCrypt.
+                string pwdToHash = user.Password + "^Y8~JJ"; // ^Y8~JJ is my hard-coded salt
+                string hashToStoreInDatabase = BCrypt.Net.BCrypt.HashPassword(pwdToHash, BCrypt.Net.BCrypt.GenerateSalt());
+                user.Password = hashToStoreInDatabase;
+
                 _ctx.Users.Add(user);
                 DRSLogger.Instance.Info("Pending insert of the user " + user);
                 return true;
@@ -309,6 +314,11 @@ namespace Data
         {
             _ctx.Entry(originalUser).CurrentValues.SetValues(updatedUser);
 
+            // We store oasswords in BCrypt.
+            string pwdToHash = originalUser.Password + "^Y8~JJ"; // ^Y8~JJ is my hard-coded salt
+            string hashToStoreInDatabase = BCrypt.Net.BCrypt.HashPassword(pwdToHash, BCrypt.Net.BCrypt.GenerateSalt());
+            originalUser.Password = hashToStoreInDatabase;
+
             return true;
         }
 
@@ -318,7 +328,7 @@ namespace Data
 
             if (user != null)
             {
-                var verify = BCrypt.Net.BCrypt.Verify(password, user.Password);
+                var verify = BCrypt.Net.BCrypt.Verify(password + "^Y8~JJ", user.Password);
 
                 if (verify)
                 {

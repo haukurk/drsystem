@@ -1,4 +1,5 @@
 using System.Web.Http;
+using API.Filters;
 using Data;
 
 [assembly: WebActivator.PreApplicationStartMethod(typeof(Api.App_Start.NinjectWebCommon), "Start")]
@@ -8,6 +9,7 @@ namespace Api.App_Start
 {
     using System;
     using System.Web;
+    using System.Web.Http.Filters;
 
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 
@@ -50,6 +52,8 @@ namespace Api.App_Start
 
             //Support WebApi Injection
             GlobalConfiguration.Configuration.DependencyResolver = new WebApiContrib.IoC.Ninject.NinjectResolver(kernel);
+            //Support injection in WebAPI filters (Repo in filter LearningAuthorizeAttribute)
+            GlobalConfiguration.Configuration.Services.Add(typeof(IFilterProvider), new NinjectWebApiFilterProvider(kernel));
 
             return kernel;
         }
