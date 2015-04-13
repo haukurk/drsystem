@@ -6,6 +6,7 @@ This project is partly a POC for using Microsoft's WebAPI 2.
 Design pattern, tools and frameworks used: 
 * Entity Framework 6 (Code first)
 * Repository pattern for data layer 
+* Testable API
 * DI design with Ninject
 * Model factory pattern to control WebAPI responses
 * Scalable authorization service using JWT.
