@@ -35,6 +35,7 @@ namespace Api.Filters
         public DRSRepository Repo { get; set; }
 
         bool Active = true;
+        bool OwnerRestricted = true;
 
         public DRSBasicAuthorizationAttribute()
         { }
@@ -45,9 +46,10 @@ namespace Api.Filters
         /// but declarative)
         /// </summary>
         /// <param name="active"></param>
-        public DRSBasicAuthorizationAttribute(bool active)
+        public DRSBasicAuthorizationAttribute(bool active, bool ownerRestricted=false)
         {
             Active = active;
+            OwnerRestricted = ownerRestricted;
         }
 
         /// <summary>

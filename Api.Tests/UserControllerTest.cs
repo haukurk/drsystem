@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Net.Http.Formatting;
 using System.Security.Principal;
 using System.Threading;
 using System.Web;
@@ -13,7 +14,7 @@ using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Mvc;
 using Api.Controllers;
-using API.Tests.Helpers;
+using Api.Models;
 using API.Tests.TestingContexts;
 using Data;
 using Data.Models;
@@ -54,7 +55,6 @@ namespace API.Tests
 
             // Assert
             Assert.AreEqual(userResponseMessage.StatusCode, HttpStatusCode.Forbidden);
-
         }
 
         [TestMethod]
@@ -71,15 +71,31 @@ namespace API.Tests
 
             // Assert
             Assert.AreEqual(userResponseMessage.StatusCode, HttpStatusCode.OK);
+
+            UserDetailModel user = null;
+            userResponseMessage.TryGetContentValue(out user);
+
+            Assert.IsInstanceOfType(user, typeof(UserDetailModel), "Wrong Model");
+        }
+
+        
+        [TestMethod]
+        public void TestFindingANonExistingUser()
+        {
+            // Arrange 
+            SetFakeHelper();
+            // TODO: We are not testing the auth like this. FIX, add headers.
+            var identity = new GenericIdentity("SomeUserThatDoesnotExists");
+            Thread.CurrentPrincipal = new GenericPrincipal(identity, null);
+
+            // Act
+            var userResponseMessage = controller.Get("SomeUserThatDoesnotExists");
+
+            // Assert
+            Assert.AreEqual(userResponseMessage.StatusCode, HttpStatusCode.NotFound);
         }
 
         /*
-        [TestMethod]
-        public void TestLoginUser()
-        {
-
-        }
-
         [TestMethod]
         public void TestUpdateUser()
         {

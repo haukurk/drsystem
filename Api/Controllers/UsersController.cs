@@ -63,7 +63,7 @@ namespace Api.Controllers
         }
 
         // TODO: THIS NEEDS PROTECTION.
-        [DRSBasicAuthorization(true)]
+        [DRSBasicAuthorization(active:true)]
         [HttpGet]
         public HttpResponseMessage Get(string username)
         {
