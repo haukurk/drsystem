@@ -72,7 +72,7 @@ namespace API.Tests
             // Assert
             Assert.AreEqual(userResponseMessage.StatusCode, HttpStatusCode.OK);
 
-            UserDetailModel user = null;
+            UserBaseModel user = null;
             userResponseMessage.TryGetContentValue(out user);
 
             Assert.IsInstanceOfType(user, typeof(UserDetailModel), "Wrong Model");
