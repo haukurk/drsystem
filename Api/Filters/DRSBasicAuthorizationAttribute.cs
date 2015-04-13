@@ -72,6 +72,7 @@ namespace Api.Filters
                     return;
                 }
 
+
                 var principal = new GenericPrincipal(identity, null);
 
                 Thread.CurrentPrincipal = principal;
@@ -83,6 +84,7 @@ namespace Api.Filters
                 base.OnAuthorization(actionContext);
             }
         }
+
 
         /// <summary>
         /// Base implementation for user authentication.

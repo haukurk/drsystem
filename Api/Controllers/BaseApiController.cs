@@ -20,7 +20,7 @@ namespace Api.Controllers
             _repository = repository;
         }
 
-        protected IDRSRepository DRSRepository
+        public IDRSRepository DRSRepository
         {
             get { return _repository; }
         }

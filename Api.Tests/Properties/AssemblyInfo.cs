@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("DRS2Web.Tests")]
+[assembly: AssemblyTitle("API.Tests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("DRS2Web.Tests")]
+[assembly: AssemblyProduct("API.Tests")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("a774232c-486e-4e70-a732-30c7c0fb862a")]
+[assembly: Guid("31b3b708-8d39-47cf-b5a6-23ffc8d2cb0f")]
 
 // Version information for an assembly consists of the following four values:
 //

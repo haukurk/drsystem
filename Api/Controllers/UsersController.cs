@@ -4,6 +4,8 @@ using System.Data.Entity.Validation;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Principal;
+using System.Threading;
 using System.Web.Http;
 using System.Web.Http.Routing;
 using System.Web.UI;
@@ -32,7 +34,8 @@ namespace Api.Controllers
             var totalCount = query.Count();
             var totalPages = (int) Math.Ceiling((double) totalCount/pageSize);
 
-            var urlHelper = new UrlHelper(Request);
+            UrlHelper urlHelper = new UrlHelper(Request);
+            
             var prevLink = page > 0 ? urlHelper.Link("Users", new {page = page - 1, pageSize = pageSize}) : "";
             var nextLink = page < totalPages - 1
                 ? urlHelper.Link("Users", new {page = page + 1, pageSize = pageSize})
@@ -46,8 +49,7 @@ namespace Api.Controllers
                                       NextPageLink = nextLink
                                   };
 
-            System.Web.HttpContext.Current.Response.Headers.Add("X-Pagination",
-                                                                 Newtonsoft.Json.JsonConvert.SerializeObject(paginationHeader));
+            //System.Web.HttpContext.Current.Response.Headers.Add("X-Pagination",Newtonsoft.Json.JsonConvert.SerializeObject(paginationHeader));
 
 
             var results = query
@@ -65,6 +67,14 @@ namespace Api.Controllers
         [HttpGet]
         public HttpResponseMessage Get(string username)
         {
+
+            IPrincipal threadPrincipal = Thread.CurrentPrincipal;
+
+            if (threadPrincipal.Identity.Name != username)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.Forbidden, "You do not have permission to see detailed information about this user.");
+            }
+
             try
             {
                 var user = DRSRepository.GetUser(username);
