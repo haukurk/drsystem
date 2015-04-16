@@ -39,8 +39,8 @@ namespace Api
             // Logs
             config.Routes.MapHttpRoute(
                 name: "Logs",
-                routeTemplate: "api/logs/{id}",
-                defaults: new { controller = "logs", id = RouteParameter.Optional }
+                routeTemplate: "api/logs/{logId}",
+                defaults: new { controller = "logs", logId = RouteParameter.Optional }
                 );
 
             // Issues

@@ -22,7 +22,7 @@ namespace API.Controllers
         [HttpGet]
         public IEnumerable<IssueModel> Get(int page = 0, int pageSize = 50)
         {
-            IQueryable<Issue> query = DRSRepository.GetAllIssues().OrderBy(l => l.ReviewEntity.System);
+            IQueryable<Issue> query = DRSRepository.GetAllIssues().OrderBy(l => l.ReviewEntity.System.Name);
 
             var totalCount = query.Count();
             var totalPages = (int)Math.Ceiling((double)totalCount / pageSize);

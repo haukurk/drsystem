@@ -13,10 +13,29 @@ using Data.Models;
 
 namespace API.Controllers
 {
-    public class LogController : BaseApiController
+    public class LogsController : BaseApiController
     {
-        public LogController(IDRSRepository repository) : base(repository)
+        public LogsController(IDRSRepository repository) : base(repository)
         {
+        }
+
+        [HttpGet]
+        public HttpResponseMessage Get(int logId)
+        {
+            try
+            {
+                var log = DRSRepository.GetLog(logId);
+                if (log != null)
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, DRSModelFactory.Create(log));
+                }
+
+                return Request.CreateResponse(HttpStatusCode.NotFound);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
+            }
         }
 
         [HttpGet]
@@ -52,25 +71,6 @@ namespace API.Controllers
             .Select(s => DRSModelFactory.Create(s));
 
             return results;
-        }
-
-        [HttpGet]
-        public HttpResponseMessage Get(int logId)
-        {
-            try
-            {
-                var log = DRSRepository.GetLog(logId);
-                if (log != null)
-                {
-                    return Request.CreateResponse(HttpStatusCode.OK, DRSModelFactory.Create(log));
-                }
-
-                return Request.CreateResponse(HttpStatusCode.NotFound);
-            }
-            catch (Exception ex)
-            {
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
-            }
         }
 
         [HttpPost]

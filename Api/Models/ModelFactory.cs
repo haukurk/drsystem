@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Security.Policy;
 using System.Web;
+using API.Security;
 using Data;
 using Data.Models;
 
@@ -25,6 +26,10 @@ namespace Api.Models
 
         public SystemModel Create(DRSSystem system)
         {
+
+            if (system == null)
+                return null;
+
             return new SystemModel()
                    {
                        Id = system.Id,
@@ -55,6 +60,9 @@ namespace Api.Models
 
         public IssueModel Create(Issue issue)
         {
+            if (issue == null)
+                return null;
+
             return new IssueModel()
                    {
                        Id = issue.Id,
@@ -67,6 +75,10 @@ namespace Api.Models
 
         public List<IssueModel> Create(ICollection<Issue> issues)
         {
+
+            if (issues == null)
+                return null;
+
             var list = issues.ToList().Select(
                 x => new IssueModel
                      {
@@ -83,6 +95,9 @@ namespace Api.Models
 
         public ReviewEntityModel Create(ReviewEntity entity)
         {
+            if (entity == null)
+                return null;
+
             return new ReviewEntityModel()
                    {
                        Id = entity.Id,
@@ -102,6 +117,8 @@ namespace Api.Models
 
         public ReviewEntity Parse(ReviewEntityModel entity)
         {
+            if (entity == null)
+                return null;
 
             var review = new ReviewEntity()
             {
@@ -126,6 +143,9 @@ namespace Api.Models
 
         public List<ReviewEntityModel> Create(ICollection<ReviewEntity> reviewEntities)
         {
+            if (reviewEntities == null)
+                return null;
+
             var list = reviewEntities.ToList().Select(
                 x => new ReviewEntityModel
                 {
@@ -144,6 +164,9 @@ namespace Api.Models
 
         public LogModel Create(Log log)
         {
+            if (log == null)
+                return null;
+
             return new LogModel()
                    {
                        Id = log.Id,
@@ -151,12 +174,15 @@ namespace Api.Models
                        Severity = log.Severity,
                        User = CreateBasic(log.User),
                        Created = log.Created,
-                       Url = _UrlHelper.Link("Logs", new { id = log.Id })
+                       Url = _UrlHelper.Link("Logs", new { logId = log.Id })
                    };
         }
 
         public List<LogModel> Create(ICollection<Log> logs)
         {
+            if (logs == null)
+                return null;
+
             var list = logs.ToList().Select(
                 x => new LogModel
                 {
@@ -165,7 +191,7 @@ namespace Api.Models
                     Message = x.Message,
                     Created = x.Created,
                     Severity = x.Severity,
-                    Url = _UrlHelper.Link("Logs", new { id = x.Id })
+                    Url = _UrlHelper.Link("Logs", new { logId = x.Id })
                 }
                 ).ToList();
 
@@ -174,6 +200,8 @@ namespace Api.Models
 
         public Log Parse(LogModel log)
         {
+            if (log == null)
+                return null;
 
             var entity = new Log()
             {
@@ -193,6 +221,9 @@ namespace Api.Models
 
         public UserBaseModel CreateBasic(User user)
         {
+            if (user == null)
+                return null;
+
             return new UserBaseModel
                    {
                        Id = user.Id,
@@ -206,6 +237,9 @@ namespace Api.Models
 
         public UserDetailModel Create(User user)
         {
+            if (user == null)
+                return null;
+
             return new UserDetailModel()
                    {
                        Id = user.Id,

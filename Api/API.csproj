@@ -131,7 +131,7 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\IssuesController.cs" />
-    <Compile Include="Controllers\LogController.cs" />
+    <Compile Include="Controllers\LogsController.cs" />
     <Compile Include="Controllers\ReviewEntitiesController.cs" />
     <Compile Include="Controllers\SystemsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
