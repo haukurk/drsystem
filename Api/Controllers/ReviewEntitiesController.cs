@@ -10,6 +10,7 @@ using Data;
 using Data.Helpers;
 using Data.Models;
 using System.Web.Http.Routing;
+using Api.Filters;
 
 namespace Api.Controllers
 {
@@ -19,6 +20,7 @@ namespace Api.Controllers
         {
         }
 
+        [DRSBasicAuthorization(active: true, ownerRestricted: false)]
         [HttpGet]
         public IEnumerable<ReviewEntityModel> Get(int page = 0, int pageSize = 50)
         {
@@ -56,6 +58,7 @@ namespace Api.Controllers
             return results;
         }
 
+        [DRSBasicAuthorization(active: true, ownerRestricted: false)]
         [HttpGet]
         public HttpResponseMessage Get(int reviewId)
         {
@@ -75,6 +78,7 @@ namespace Api.Controllers
             }
         }
 
+        [DRSBasicAuthorization(active: true, ownerRestricted: false)]
         [HttpPost]
         public HttpResponseMessage Post([FromBody] ReviewEntityModel reviewEntity)
         {
@@ -107,6 +111,7 @@ namespace Api.Controllers
             }
         }
 
+        [DRSBasicAuthorization(active: true, ownerRestricted: false)]
         [HttpPatch]
         [HttpPut]
         public HttpResponseMessage Put(int reviewid, [FromBody] ReviewEntityModel review)
@@ -141,6 +146,7 @@ namespace Api.Controllers
             }
         }
 
+        [DRSBasicAuthorization(active: true, ownerRestricted: false)]
         [HttpDelete]
         public HttpResponseMessage Delete(int reviewid)
         {

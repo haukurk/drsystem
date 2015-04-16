@@ -24,6 +24,7 @@ namespace Api.Controllers
 
         }
 
+        [DRSBasicAuthorization(active: true, ownerRestricted: false)]
         [HttpGet]
         public IEnumerable<UserBaseModel> Get(int page = 0, int pageSize = 50)
         {
@@ -63,17 +64,17 @@ namespace Api.Controllers
         }
 
         // TODO: THIS NEEDS PROTECTION.
-        [DRSBasicAuthorization(active:true)]
+        [DRSBasicAuthorization(active:true,ownerRestricted:true)]
         [HttpGet]
         public HttpResponseMessage Get(string username)
         {
 
-            IPrincipal threadPrincipal = Thread.CurrentPrincipal;
+            /*IPrincipal threadPrincipal = Thread.CurrentPrincipal;
 
             if (threadPrincipal.Identity.Name != username)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.Forbidden, "You do not have permission to see detailed information about this user.");
-            }
+            }*/
 
             try
             {
@@ -91,6 +92,7 @@ namespace Api.Controllers
             }
         }
 
+        [DRSBasicAuthorization(active: true, ownerRestricted: false)]
         [HttpPost]
         public HttpResponseMessage Post([FromBody] User user)
         {
@@ -125,6 +127,7 @@ namespace Api.Controllers
             }
         }
 
+        [DRSBasicAuthorization(active: true, ownerRestricted: true)]
         [HttpPatch]
         [HttpPut]
         public HttpResponseMessage Put(string userName, [FromBody] User user)
@@ -158,6 +161,8 @@ namespace Api.Controllers
             }
         }
 
+        // TODO: Add Roles.
+        [DRSBasicAuthorization(active: true, ownerRestricted: false)]
         [HttpDelete]
         public HttpResponseMessage Delete(string userName)
         {

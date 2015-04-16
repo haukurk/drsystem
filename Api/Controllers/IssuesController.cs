@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http.Routing;
 using System.Web.Http;
+using Api.Filters;
 using Api.Models;
 using Data;
 using Data.Models;
@@ -19,6 +20,7 @@ namespace API.Controllers
 
         }
 
+        [DRSBasicAuthorization(active: true, ownerRestricted: false)]
         [HttpGet]
         public IEnumerable<IssueModel> Get(int page = 0, int pageSize = 50)
         {
@@ -54,6 +56,7 @@ namespace API.Controllers
             return results;
         }
 
+        [DRSBasicAuthorization(active: true, ownerRestricted: false)]
         [HttpGet]
         public HttpResponseMessage Get(int issueid)
         {

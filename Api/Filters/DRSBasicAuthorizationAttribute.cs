@@ -74,6 +74,14 @@ namespace Api.Filters
                     return;
                 }
 
+                if (OwnerRestricted)
+                {
+                    if (!IsResourceOwner(identity.Name, actionContext))
+                    {
+                        Challenge(actionContext);
+                        return;
+                    }
+                }
 
                 var principal = new GenericPrincipal(identity, null);
 
@@ -139,8 +147,21 @@ namespace Api.Filters
         void Challenge(HttpActionContext actionContext)
         {
             var host = actionContext.Request.RequestUri.DnsSafeHost;
-            actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized);
+            actionContext.Response = actionContext.Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "Not allowed, or wrong credentials.");
             actionContext.Response.Headers.Add("WWW-Authenticate", string.Format("Basic realm=\"{0}\"", host));
         }
+
+        private bool IsResourceOwner(string userName, System.Web.Http.Controllers.HttpActionContext actionContext)
+        {
+            var routeData = actionContext.Request.GetRouteData();
+            var resourceUserName = routeData.Values["userName"] as string;
+ 
+            if (resourceUserName == userName)
+            {
+                return true;
+            }
+            return false;
+        }
+
     }
 }

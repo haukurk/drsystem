@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using Api.Filters;
 using Api.Models;
 using Data;
 using Data.Models;
@@ -20,6 +21,7 @@ namespace Api.Controllers
 
         }
 
+        [DRSBasicAuthorization(active: true, ownerRestricted: false)]
         [HttpGet]
         public IEnumerable<SystemModel> Get()
         {
@@ -33,6 +35,7 @@ namespace Api.Controllers
             return results;
         }
 
+        [DRSBasicAuthorization(active: true, ownerRestricted: false)]
         [HttpGet]
         public HttpResponseMessage GetSystem(int id)
         {
@@ -57,6 +60,7 @@ namespace Api.Controllers
 
         }
 
+        [DRSBasicAuthorization(active: true, ownerRestricted: false)]
         [HttpPost]
         public HttpResponseMessage Post([FromBody] SystemModel systemModel)
         {
@@ -85,6 +89,7 @@ namespace Api.Controllers
             }
         }
 
+        [DRSBasicAuthorization(active: true, ownerRestricted: false)]
         [HttpPatch]
         [HttpPut]
         public HttpResponseMessage Put(int id, [FromBody] SystemModel fromModel)
@@ -123,6 +128,7 @@ namespace Api.Controllers
             }
         }
 
+        [DRSBasicAuthorization(active: true, ownerRestricted: false)]
         [HttpDelete]
         public HttpResponseMessage Delete(int id)
         {

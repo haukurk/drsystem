@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Routing;
 using Api.Controllers;
+using Api.Filters;
 using Api.Models;
 using Data;
 using Data.Models;
@@ -19,6 +20,7 @@ namespace API.Controllers
         {
         }
 
+        [DRSBasicAuthorization(active: true, ownerRestricted: false)]
         [HttpGet]
         public HttpResponseMessage Get(int logId)
         {
@@ -38,6 +40,7 @@ namespace API.Controllers
             }
         }
 
+        [DRSBasicAuthorization(active: true, ownerRestricted: false)]
         [HttpGet]
         public IEnumerable<LogModel> Get(int page = 0, int pageSize = 50)
         {
@@ -73,6 +76,7 @@ namespace API.Controllers
             return results;
         }
 
+        [DRSBasicAuthorization(active: true, ownerRestricted: false)]
         [HttpPost]
         public HttpResponseMessage Post([FromBody] LogModel logModel)
         {
@@ -105,6 +109,7 @@ namespace API.Controllers
             }
         }
 
+        [DRSBasicAuthorization(active: true, ownerRestricted: false)]
         [HttpPatch]
         [HttpPut]
         public HttpResponseMessage Put(int logid, [FromBody] LogModel log)
@@ -139,6 +144,8 @@ namespace API.Controllers
             }
         }
 
+        // TODO: Add admin role.
+        [DRSBasicAuthorization(active: true, ownerRestricted: false)]
         [HttpDelete]
         public HttpResponseMessage Delete(int logid)
         {
