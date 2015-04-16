@@ -9,13 +9,6 @@ namespace Data.Models
 {
     public class ReviewEntity
     {
-        public ReviewEntity()
-        {
-            System = new DRSSystem();
-            Issues = new List<Issue>();
-            User = new User();
-        }
-
         [Key]
         public int Id { get; set; }
         public string Description { get; set; }
@@ -26,8 +19,8 @@ namespace Data.Models
         public string IdentityString { get; set; }
         public string URL { get; set; }
 
-        public User User { get; set; }
-        public DRSSystem System { get; set; }
-        public ICollection<Issue> Issues { get; set; }
+        public virtual User User { get; set; }
+        public virtual DRSSystem System { get; set; }
+        public virtual ICollection<Issue> Issues { get; set; }
     }
 }

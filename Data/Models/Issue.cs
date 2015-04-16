@@ -9,17 +9,12 @@ namespace Data.Models
 {
     public class Issue
     {
-        public Issue()
-        {
-            ReviewEntity = new ReviewEntity();
-        }
-
         [Key]
         public int Id { get; set; }
         public string IssueIdentity { get; set; }
         public string IssueProvider { get; set; }
         public string URL { get; set; }
-
-        public ReviewEntity ReviewEntity { get; set; }
+        public virtual User ForcedByUser { get; set; }
+        public virtual ReviewEntity ReviewEntity { get; set; }
     }
 }

@@ -10,11 +10,6 @@ namespace Data.Models
 {
     public class User
     {
-        public User()
-        {
-            Logs = new List<Log>();
-            ReviewEntities = new List<ReviewEntity>();
-        }
 
         [Key]
         public int Id { get; set; }
@@ -27,8 +22,8 @@ namespace Data.Models
         public DateTime? RegistrationDate { get; set; }
         public DateTime? LastLoginDate { get; set; }
 
-        public ICollection<Log> Logs { get; set; }
-        public ICollection<ReviewEntity> ReviewEntities { get; set; }
+        public virtual ICollection<Log> Logs { get; set; }
+        public virtual ICollection<ReviewEntity> ReviewEntities { get; set; }
 
         public override string ToString()
         {
