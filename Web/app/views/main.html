@@ -1,3 +1,47 @@
-<div class="row marketing">
-    test
+<div class="container-fluid">
+  <treasure-overlay-spinner active='spinner.active'>
+    <p>This will be covered by a spinner when spinner.active is truthy</p>
+  </treasure-overlay-spinner>
+  <table class="table forum table-striped">
+    <thead>
+      <tr>
+        
+        <th>
+          <h3>Reviews</h3>
+        </th>
+        <th class="cell-stat text-center">Responsible</th>
+        <th class="cell-stat text-center hidden-xs hidden-sm">Notification Period</th>
+        <th class="cell-stat-2x hidden-xs hidden-sm">Last Notified</th>
+        <th class="cell-stat-2x">Operations</th>
+      </tr>
+    </thead>
+    <tbody>
+        
+      <tr ng-repeat="review in reviews">
+        <td>
+          <h4><a href="#">{{ review.description }}</a><br><small>{{ review.system.name }}</small></h4>
+        </td>
+        <td class="text-center"><a href="#">{{ review.responsible }}</a></td>
+        <td class="text-center hidden-xs hidden-sm">{{ review.notificationperiod }}</td>
+        <td ng-if="review.user" class="hidden-xs hidden-sm">Forced by <a href="#">{{ review.user.fullname }}</a><br><small><i class="fa fa-clock-o"></i>
+            <span ng-if="review.lastNotified" am-time-ago="review.lastNotified"></span>
+            <span ng-if="!review.lastNotified">Never</span>
+            </small></td>
+        <td ng-if="!review.user" class="hidden-xs hidden-sm">Notified by DRS<br><small><i class="fa fa-clock-o"></i>
+            <span ng-if="review.lastNotified" am-time-ago="review.lastNotified"></span>
+            <span ng-if="!review.lastNotified">Never</span>
+            </small></td>
+        <td style="padding-top:20px;">
+              <div class="btn-group btn-group-xs" role="group" aria-label="...">
+              <button title="Edit" type="button" class="btn btn-default" ng-click="editReview(review);"><i class="fa fa-pencil-square-o"></i> <span class="hidden-xs hidden-sm">Edit</span></button>
+              <button title="Track" type="button" class="btn btn-default" ng-click="showTracking(review);"><i class="fa fa-compress"></i> <span class="hidden-xs hidden-sm">Track</span></button>
+              <button title="Delete" type="button" class="btn btn-default hidden-xs"><i class="fa fa-trash-o"></i> <span class="hidden-xs hidden-sm hidden-md" ng-click="deleteReview(review);">Delete</span></button>
+              <button title="Force Notification for the Review" type="button" class="btn btn-default"><i class="fa fa-share-square-o"></i> <span class="hidden-xs hidden-sm hidden-md" ng-click="forceNotification(review);">Force Notification.</span></button>
+            </div>
+          </td>
+      </tr>
+        
+    </tbody>
+  </table>
+</div>
 </div>

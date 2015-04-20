@@ -1,0 +1,31 @@
+    <div class="container">
+        
+        <div ng-if="$root.globals.currentUser">
+            <button class="btn" ng-click="logout()">Logout.</button>
+        </div>
+        
+        <div ng-if="!$root.globals.currentUser" class="card card-container">
+            <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+            <p id="profile-name" class="profile-name-card"></p>
+            <form class="form-signin" ng-submit="login()">
+                <span id="reauth-email" class="reauth-email"></span>
+                <input ng-model="$parent.username" type="user" id="inputUser" class="form-control" placeholder="Username" required autofocus>
+                <input ng-model="$parent.password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                <div id="remember" class="checkbox">
+                    <label>
+                        <input ng-model="rememberme" type="checkbox" value="remember-me"> Remember me
+                    </label>
+                </div>
+                <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
+            </form><!-- /form -->
+            <a href="mailto:support@samskip.com?subject=Cannot login to DRS." class="forgot-password">
+                Having problems logging in?
+            </a>
+            
+            
+        
+        </div><!-- /card-container -->
+        
+        <div ng-show="$parent.error" class="alert alert-danger" role="alert">{{$parent.error}}</div>
+
+    </div><!-- /container -->

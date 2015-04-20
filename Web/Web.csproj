@@ -83,15 +83,24 @@
     <Content Include="app\robots.txt" />
     <Content Include="app\scripts\app.js" />
     <Content Include="app\scripts\controllers\about.js" />
+    <Content Include="app\scripts\controllers\admin.js" />
+    <Content Include="app\scripts\controllers\login.js" />
     <Content Include="app\scripts\controllers\main.js" />
+    <Content Include="app\scripts\directives\recentdirective.js" />
+    <Content Include="app\scripts\services\auth.js" />
+    <Content Include="app\scripts\services\drsrestservice.js" />
     <Content Include="app\styles\main.css" />
     <Content Include="app\views\about.html" />
     <Content Include="app\views\main.html" />
     <Content Include="Gruntfile.js" />
     <Content Include="test\karma.conf.js" />
     <Content Include="test\spec\controllers\about.js" />
+    <Content Include="test\spec\controllers\admin.js" />
+    <Content Include="test\spec\controllers\login.js" />
     <Content Include="test\spec\controllers\main.js" />
     <Content Include="test\spec\directives\recentdirective.js" />
+    <Content Include="test\spec\services\auth.js" />
+    <Content Include="test\spec\services\drsrestservice.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html class="no-js">
   <head>
     <meta charset="utf-8">
@@ -9,10 +9,12 @@
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
+      <link rel="stylesheet" href="styles/login.css">
     <!-- endbuild -->
   </head>
   <body ng-app="drsystemApp">
@@ -23,7 +25,7 @@
     <!-- Add your site or application content here -->
     <div class="header">
       <div class="navbar navbar-default" role="navigation">
-        <div class="container">
+        <div class="container-fluid">
           <div class="navbar-header">
 
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
@@ -33,27 +35,33 @@
               <span class="icon-bar"></span>
             </button>
 
-            <a class="navbar-brand" href="#/">DRS (Document Review System)</a>
+            <a class="navbar-brand" href="#/" title="Document Review System"><i class="fa fa-file-text-o"></i> Document Review System</a>
           </div>
 
           <div class="collapse navbar-collapse" id="js-navbar-collapse">
 
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="#/">Reviews Control</a></li>
-                <li><a ng-href="#/admin">Administration</a></li>
-                <li><a ng-href="#/about">About</a></li>
+            <ul class="nav navbar-nav pull-right">
+                <li><a href="#/"><i class="fa fa-sitemap"></i> Reviews Control</a></li>
+                <li><a ng-href="#/admin"><i class="fa fa-cogs"></i> Administration</a></li>
+                <li ng-if="!$root.globals.currentUser"><a ng-href="#/login"><i class="fa fa-user"></i> Login</a></li>
+                <li ng-if="$root.globals.currentUser">
+                <a ng-href="#/login">
+                <i class="fa fa-user"></i>
+                    {{ $root.globals.currentUser.name }}
+                </a>
+                </li>
             </ul>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="container">
+    <div class="container-fluid">
     <div ng-view=""></div>
     </div>
 
     <div class="footer">
-      <div class="container">
+      <div class="container-fluid">
         <p><span class="glyphicon glyphicon-globe"></span> IT Operations, Samskip. 2015.</p>
       </div>
     </div>
@@ -82,16 +90,26 @@
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="bower_components/angular-touch/angular-touch.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="bower_components/moment/moment.js"></script>
+    <script src="bower_components/angular-moment/angular-moment.js"></script>
+    <script src="bower_components/angular-treasure-overlay-spinner/src/treasure-overlay-spinner.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
+        <script src="scripts/config.js"></script>
         <script src="scripts/app.js"></script>
         <script src="scripts/controllers/main.js"></script>
         <script src="scripts/controllers/about.js"></script>
         <script src="scripts/directives/recentdirective.js"></script>
-        <script src="scripts/services/drsrestservice.js"></script>
         <script src="scripts/controllers/admin.js"></script>
+        <script src="scripts/controllers/login.js"></script>
+        <script src="scripts/services/auth.js"></script>
+        <script src="scripts/services/user.js"></script>
+        <script src="scripts/services/reviews.js"></script>
+        <script src="scripts/services/system.js"></script>
+        <script src="scripts/services/logs.js"></script>
+        <script src="scripts/services/issue.js"></script>
         <!-- endbuild -->
 </body>
 </html>
