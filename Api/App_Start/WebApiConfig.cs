@@ -15,6 +15,8 @@ namespace Api
 
             //config.Filters.Add(new ForceHttpsAttribute());
 
+            config.EnableCors();
+
             // Systems 
             config.Routes.MapHttpRoute(
                 name: "Systems",
@@ -28,6 +30,14 @@ namespace Api
                 routeTemplate: "api/users/{userName}",
                 defaults: new { controller = "users", userName = RouteParameter.Optional }
                 );
+
+            // Authentication
+            config.Routes.MapHttpRoute(
+                name: "Authorization",
+                routeTemplate: "api/auth/{method}",
+                defaults: new { controller = "authorization" }
+                );
+
 
             // Review Entities
             config.Routes.MapHttpRoute(

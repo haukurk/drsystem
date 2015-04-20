@@ -2,8 +2,8 @@ using System.Web.Http;
 using API.Filters;
 using Data;
 
-[assembly: WebActivator.PreApplicationStartMethod(typeof(Api.App_Start.NinjectWebCommon), "Start")]
-[assembly: WebActivator.ApplicationShutdownMethodAttribute(typeof(Api.App_Start.NinjectWebCommon), "Stop")]
+[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(Api.App_Start.NinjectWebCommon), "Start")]
+[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(Api.App_Start.NinjectWebCommon), "Stop")]
 
 namespace Api.App_Start
 {

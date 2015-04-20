@@ -22,8 +22,6 @@ namespace Api.Models
             _repo = repo;
         }
 
-
-
         public SystemModel Create(DRSSystem system)
         {
 
@@ -35,6 +33,7 @@ namespace Api.Models
                        Id = system.Id,
                        Name = system.Name,
                        Description = system.Description,
+                       ReviewsCount = _repo.GetAllReviewsEntitiesForSystem(system.Id).Count(),
                        Url = _UrlHelper.Link("Systems", new { id = system.Id }),
                    };
         }
@@ -67,7 +66,7 @@ namespace Api.Models
                    {
                        Id = issue.Id,
                        IssueIdentity = issue.IssueIdentity,
-                       ReviewEntity = Create(issue.ReviewEntity),
+                       ReviewEntity = CreateBasic(issue.ReviewEntity),
                        IssueUrl = issue.URL,
                        Url = _UrlHelper.Link("Issues", new { id = issue.Id })
                    };
@@ -84,7 +83,7 @@ namespace Api.Models
                      {
                          Id = x.Id,
                          IssueIdentity = x.IssueIdentity,
-                         ReviewEntity = Create(x.ReviewEntity),
+                         ReviewEntity = CreateBasic(x.ReviewEntity),
                          IssueUrl = x.URL,
                          Url = _UrlHelper.Link("Issues", new { id = x.Id })
                      }
@@ -113,6 +112,25 @@ namespace Api.Models
                        ResponsibleEmail = entity.ResponsibleEmail,
                        Url = _UrlHelper.Link("ReviewEntities", new { id = entity.Id })
                    };
+        }
+
+        public ReviewEntityBasicModel CreateBasic(ReviewEntity entity)
+        {
+            if (entity == null)
+                return null;
+
+            return new ReviewEntityBasicModel()
+            {
+                Id = entity.Id,
+                Description = entity.Description,
+                PermanentUrl = entity.URL,
+                IdentityString = entity.IdentityString,
+                LastNotified = entity.LastNotified,
+                NotificationPeriod = entity.NotificationPeriod,
+                Responsible = entity.Responsible,
+                ResponsibleEmail = entity.ResponsibleEmail,
+                Url = _UrlHelper.Link("ReviewEntities", new { id = entity.Id })
+            };
         }
 
         public ReviewEntity Parse(ReviewEntityModel entity)
@@ -218,7 +236,6 @@ namespace Api.Models
 
         }
 
-
         public UserBaseModel CreateBasic(User user)
         {
             if (user == null)
@@ -240,7 +257,7 @@ namespace Api.Models
             if (user == null)
                 return null;
 
-            return new UserDetailModel()
+            var userModel = new UserDetailModel()
                    {
                        Id = user.Id,
                        Email = user.Email,
@@ -254,6 +271,8 @@ namespace Api.Models
                        ReviewEntities = Create(user.ReviewEntities),
                        Url = _UrlHelper.Link("Users", new {userName = user.UserName})
                    };
+
+            return userModel;
         }
 
     }

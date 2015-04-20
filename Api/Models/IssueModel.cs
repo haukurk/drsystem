@@ -9,10 +9,9 @@ namespace Api.Models
     public class IssueModel
     {
         public int Id { get; set; }
-        public ReviewEntityModel ReviewEntity { get; set; }
+        public ReviewEntityBasicModel ReviewEntity { get; set; }
         public string IssueIdentity { get; set; }
         public string IssueUrl { get; set; }
-
         public string Url { get; set; }
     }
 }

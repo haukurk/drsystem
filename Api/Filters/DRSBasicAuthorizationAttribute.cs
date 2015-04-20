@@ -153,14 +153,23 @@ namespace Api.Filters
 
         private bool IsResourceOwner(string userName, System.Web.Http.Controllers.HttpActionContext actionContext)
         {
-            var routeData = actionContext.Request.GetRouteData();
-            var resourceUserName = routeData.Values["userName"] as string;
- 
-            if (resourceUserName == userName)
+            try
             {
-                return true;
+                var routeData = actionContext.Request.GetRouteData();
+                var resourceUserName = routeData.Values["userName"] as string;
+
+                if (resourceUserName == userName)
+                {
+                    return true;
+                }
             }
+            catch
+            {
+                DRSLogger.Instance.Error("Error trying to find owner of the resouces. Missing username.");
+            }
+
             return false;
+            
         }
 
     }
