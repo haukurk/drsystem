@@ -12,9 +12,9 @@ using System.Threading;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Controllers;
-using System.Web.Mvc;
 using Api.Controllers;
 using Api.Models;
+
 using API.Tests.TestingContexts;
 using Data;
 using Data.Models;
@@ -46,6 +46,10 @@ namespace API.Tests
         [TestMethod]
         public void TestPermissionForResourceNotAllowed()
         {
+
+            /*
+             *   This test is currently failing due to auth test issue.
+             */
 
             // Arrange 
             SetFakeHelper();

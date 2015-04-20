@@ -13,7 +13,6 @@ using Data;
 using Data.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using Ninject.MockingKernel;
 
 namespace API.Tests.TestingContexts
 {
