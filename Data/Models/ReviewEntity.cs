@@ -9,7 +9,6 @@ namespace Data.Models
 {
     public class ReviewEntity
     {
-        [Key]
         public int Id { get; set; }
         public string Description { get; set; }
         public string Responsible { get; set; }
@@ -19,6 +18,11 @@ namespace Data.Models
         public string IdentityString { get; set; }
         public string URL { get; set; }
 
+        // Foreign Keys
+        public int SystemID { get; set; }
+        public int UserID { get; set; }
+
+        // Navigation Properties
         public virtual User User { get; set; }
         public virtual DRSSystem System { get; set; }
         public virtual ICollection<Issue> Issues { get; set; }

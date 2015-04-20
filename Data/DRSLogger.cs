@@ -10,7 +10,7 @@ using NLog.Targets;
 
 namespace Data
 {
-    internal static class DRSLogger
+    public static class DRSLogger
     {
         public static Logger Instance { get; private set; }
 

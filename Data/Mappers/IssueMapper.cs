@@ -24,7 +24,8 @@ namespace Data.Mappers
             Property(i => i.URL).IsOptional();
 
             // Relationships
-            HasRequired(c => c.ReviewEntity).WithMany().Map(s => s.MapKey("ReviewID"));
+            HasRequired(c => c.ReviewEntity).WithMany(r => r.Issues).HasForeignKey(r => r.ReviewID);
+            HasOptional(c => c.ForcedByUser).WithMany(u => u.Issues).HasForeignKey(r => r.ForcedUserID);
         }
     }
 }

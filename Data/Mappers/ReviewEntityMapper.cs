@@ -34,8 +34,7 @@ namespace Data.Mappers
             Property(r => r.URL).IsOptional();
 
             //relationship  
-            HasRequired(c => c.User).WithMany().Map(s => s.MapKey("UserID"));
-
+            HasRequired(c => c.User).WithMany(u => u.ReviewEntities).HasForeignKey(x => x.UserID);
 
         }
     }

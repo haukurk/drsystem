@@ -10,8 +10,6 @@ namespace Data.Models
 {
     public class User
     {
-
-        [Key]
         public int Id { get; set; }
         public string Email { get; set; }
         public string UserName { get; set; }
@@ -22,8 +20,10 @@ namespace Data.Models
         public DateTime? RegistrationDate { get; set; }
         public DateTime? LastLoginDate { get; set; }
 
+        // Navigation Properties
         public virtual ICollection<Log> Logs { get; set; }
         public virtual ICollection<ReviewEntity> ReviewEntities { get; set; }
+        public virtual ICollection<Issue> Issues { get; set; }
 
         public override string ToString()
         {

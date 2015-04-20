@@ -205,6 +205,11 @@ namespace Data
             return _ctx.ReviewEntities.Where(r => r.System.Id == systemid);
         }
 
+        public IQueryable<ReviewEntity> GetAllReviewsEntitiesForUser(int userID)
+        {
+            return _ctx.ReviewEntities.Where(r => r.User.Id == userID);
+        }
+
         public ReviewEntity GetReviewEntity(int reviewentityid)
         {
             return _ctx.ReviewEntities.Find(reviewentityid);

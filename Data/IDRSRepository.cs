@@ -33,6 +33,7 @@ namespace Data
 
         IQueryable<ReviewEntity> GetAllReviewsEntities();
         IQueryable<ReviewEntity> GetAllReviewsEntitiesForSystem(int systemid);
+        IQueryable<ReviewEntity> GetAllReviewsEntitiesForUser(int userID);
         ReviewEntity GetReviewEntity(int reviewentityid);
         bool DeleteReviewEntity(int reviewentityid);
         bool Insert(ReviewEntity reviewEntity);

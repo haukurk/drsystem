@@ -23,7 +23,7 @@ namespace Data.Mappers
             Property(l => l.Severity).IsOptional();
 
             //relationship  
-            HasOptional(c => c.User).WithMany().Map(s => s.MapKey("UserID"));
+            HasOptional(c => c.User).WithMany(u => u.Logs).HasForeignKey(c => c.UserID);
 
         }
     }
