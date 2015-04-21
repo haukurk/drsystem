@@ -13,6 +13,7 @@ namespace Data.Models
         public string IssueIdentity { get; set; }
         public string IssueProvider { get; set; }
         public string URL { get; set; }
+        public DateTime? Created { get; set; }
         public virtual User ForcedByUser { get; set; }
         public virtual ReviewEntity ReviewEntity { get; set; }
 
