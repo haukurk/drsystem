@@ -1,15 +1,18 @@
 # DRSystem
 Document Review System, with JIRA or Email support. It offers trackable reviews with JIRA which give company auditors are great overview of traceable reviews.
 
-This project is partly a POC for using Microsoft's WebAPI 2. 
+This project is partly a personal POC for using Microsoft's WebAPI 2. 
 
-Design pattern, tools and frameworks used: 
+Design pattern, tools, frameworks and remarks: 
 * Entity Framework 6 (Code first)
 * Repository pattern for data layer 
-* Testable API
+  * Testable API
+* AngularJS Front-End
+  * Testable web app.
 * DI design with Ninject
 * Model factory pattern to control WebAPI responses
 * Scalable authorization service using JWT.
+* Windows Service - Pooling
 
 # Features
 
