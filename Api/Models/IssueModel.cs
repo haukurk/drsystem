@@ -10,6 +10,7 @@ namespace Api.Models
     {
         public int Id { get; set; }
         public ReviewEntityBasicModel ReviewEntity { get; set; }
+        public DateTime? Created { get; set; }
         public string IssueIdentity { get; set; }
         public string IssueUrl { get; set; }
         public string Url { get; set; }

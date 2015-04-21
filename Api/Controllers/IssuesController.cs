@@ -75,7 +75,5 @@ namespace API.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
             }
         }
-
-
     }
 }

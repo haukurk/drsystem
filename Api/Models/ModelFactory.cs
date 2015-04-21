@@ -68,6 +68,7 @@ namespace Api.Models
                        IssueIdentity = issue.IssueIdentity,
                        ReviewEntity = CreateBasic(issue.ReviewEntity),
                        IssueUrl = issue.URL,
+                       Created = issue.Created,
                        Url = _UrlHelper.Link("Issues", new { id = issue.Id })
                    };
         }
@@ -85,6 +86,7 @@ namespace Api.Models
                          IssueIdentity = x.IssueIdentity,
                          ReviewEntity = CreateBasic(x.ReviewEntity),
                          IssueUrl = x.URL,
+                         Created = x.Created,
                          Url = _UrlHelper.Link("Issues", new { id = x.Id })
                      }
                 ).ToList();
