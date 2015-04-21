@@ -1,9 +1,10 @@
 # DRSystem
-Document Review System, with JIRA or Email support. It offers trackable reviews with JIRA which give company auditors are great overview of traceable reviews.
+*D*ocument *R*eview *S*ystem, with JIRA support. It offers trackable reviews with JIRA which give company auditors a great overview of reviews that can have trackable history.
 
 This project is partly a personal POC for using Microsoft's WebAPI 2. 
 
 Design pattern, tools, frameworks and remarks: 
+* Plugable components (Providers).
 * Entity Framework 6 (Code first)
 * Repository pattern for data layer 
   * Testable API
@@ -18,7 +19,6 @@ Design pattern, tools, frameworks and remarks:
 
 The system has the following components to send audit notifications to:
 * JIRA (Needs access to JIRA API) - Offers tracking.
-* Email - Does not offer tracking.
 
 # Configuration
 
