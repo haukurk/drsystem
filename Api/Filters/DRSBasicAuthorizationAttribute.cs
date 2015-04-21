@@ -32,7 +32,7 @@ namespace Api.Filters
     {
 
         [Inject]
-        public DRSRepository Repo { get; set; }
+        public IDRSRepository Repo { get; set; }
 
         bool Active = true;
         bool OwnerRestricted = true;
